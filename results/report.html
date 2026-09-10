@@ -1,0 +1,2852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aegis Vanguard Report — https://app.archscale.in</title>
+<style>
+:root {
+    --bg: #0a0a0f;
+    --bg-card: #111118;
+    --bg-elevated: #1a1a24;
+    --border: #2a2a3a;
+    --text: #e4e4ef;
+    --text-muted: #6b6b80;
+    --accent: #3b82f6;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 14px;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+h2 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+h3 { font-size: 16px; font-weight: 600; margin: 16px 0 8px; }
+.subtitle { color: var(--text-muted); font-size: 13px; }
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+}
+.meta-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+}
+.meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
+.meta-value { font-size: 18px; font-weight: 700; }
+.score-section {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 24px 0;
+}
+.score-ring {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+}
+.score-details { flex: 1; }
+.sev-bar {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+.sev-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+.sev-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--bg-elevated);
+    border-bottom: 2px solid var(--border);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+.finding-row { cursor: pointer; transition: background 0.15s; }
+.finding-row:hover { background: var(--bg-elevated); }
+.finding-detail { background: var(--bg-card); }
+.finding-detail.hidden { display: none; }
+.detail-grid { display: grid; gap: 8px; padding: 8px 0; font-size: 13px; }
+.detail-grid pre {
+    background: var(--bg);
+    padding: 8px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+.sev-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+code {
+    background: var(--bg-elevated);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.tech-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    margin: 4px;
+}
+ul { padding-left: 20px; }
+li { margin: 4px 0; }
+.risk-list { list-style: none; padding: 0; }
+.risk-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin: 6px 0;
+}
+.footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    text-align: center;
+}
+@media print {
+    body { background: white; color: black; font-size: 11px; }
+    .container { max-width: 100%; padding: 20px; }
+    .finding-detail { display: table-row !important; }
+    .finding-detail.hidden { display: table-row !important; }
+    .score-section, .meta-item { border-color: #ddd; }
+    h2 { page-break-before: always; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>🛡️ Aegis Vanguard Report</h1>
+    <p class="subtitle">
+        Target: <strong>https://app.archscale.in</strong> |
+        Auth: <strong>https://auth.archscale.in</strong> |
+        Scope: Comprehensive multi-tenant security assessment |
+        Generated: 2026-09-10 23:23:29
+    </p>
+
+    <!-- Score Section -->
+    <div class="score-section">
+        <svg class="score-ring" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#2a2a3a" stroke-width="6"/>
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#ef4444" stroke-width="6"
+                    stroke-linecap="round" stroke-dasharray="263.89356"
+                    stroke-dashoffset="263.89356"
+                    transform="rotate(-90 50 50)"/>
+            <text x="50" y="45" text-anchor="middle" font-size="24" font-weight="700" fill="#ef4444">F</text>
+            <text x="50" y="62" text-anchor="middle" font-size="10" fill="#6b6b80">0/100</text>
+        </svg>
+        <div class="score-details">
+            <h2 style="margin:0;border:none;">Security Score</h2>
+            <p style="color:var(--text-muted);">64 findings across 14 scanner modules</p>
+            <div class="sev-bar">
+                <div class="sev-item"><span class="sev-dot" style="background:#ef4444"></span>Critical: 0</div>
+                <div class="sev-item"><span class="sev-dot" style="background:#f97316"></span>High: 14</div>
+                <div class="sev-item"><span class="sev-dot" style="background:#eab308"></span>Medium: 13</div>
+                <div class="sev-item"><span class="sev-dot" style="background:#3b82f6"></span>Low: 18</div>
+                <div class="sev-item"><span class="sev-dot" style="background:#6b7280"></span>Info: 19</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scan Metadata -->
+    <div class="meta-grid">
+        <div class="meta-item">
+            <div class="meta-label">Scan Duration</div>
+            <div class="meta-value">145s</div>
+        </div>
+        <div class="meta-item">
+            <div class="meta-label">Modules Run</div>
+            <div class="meta-value">14</div>
+        </div>
+        <div class="meta-item">
+            <div class="meta-label">Domains</div>
+            <div class="meta-value">10</div>
+        </div>
+        <div class="meta-item">
+            <div class="meta-label">Total Endpoints</div>
+            <div class="meta-value">18</div>
+        </div>
+    </div>
+
+    <!-- Key Risks -->
+    <h2>⚠️ Key Risks</h2><ul class='risk-list'><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> Missing Content-Security-Policy header on Main Application</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> Missing Content-Security-Policy header on Authentication Service</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> Missing Content-Security-Policy header on Login Page</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> Missing Content-Security-Policy header on Password Reset</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> No Content-Security-Policy header on Main Application</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> No Content-Security-Policy header on Auth Service</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> No Content-Security-Policy header on Login Page</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> No rate limiting detected on Login Page</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> No rate limiting detected on Login POST</li><li class="risk-item"><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span> No rate limiting detected on Password Reset</li></ul>
+
+    <!-- Technologies -->
+    <h2>🔧 Technologies Detected</h2>
+    <div><span class="tech-tag">Cloudflare</span><span class="tech-tag">Cloudflare WAF</span><span class="tech-tag">Vercel</span></div>
+
+    <!-- Findings -->
+    <h2>🔍 All Findings (64)</h2>
+    <p style="color:var(--text-muted);font-size:12px;margin-bottom:12px;">Click a row to expand details.</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:90px;">Severity</th>
+                <th>Finding</th>
+                <th style="width:180px;">Category</th>
+                <th style="width:100px;">CWE</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>Missing Content-Security-Policy header on Main Application</td>
+            <td>Security Headers</td>
+            <td><code>CWE-79</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> CSP prevents XSS, clickjacking, and other injection attacks</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Header 'Content-Security-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Content-Security-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins</div>
+                    <div><strong>OWASP:</strong> A03:2021 Injection | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Missing X-Frame-Options header on Main Application</td>
+            <td>Security Headers</td>
+            <td><code>CWE-1021</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents clickjacking by controlling framing of the page</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Header 'X-Frame-Options' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Frame-Options, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing X-Content-Type-Options header on Main Application</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents MIME-sniffing attacks</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Header 'X-Content-Type-Options' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Content-Type-Options, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Content-Type-Options: nosniff</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Missing X-XSS-Protection header on Main Application</td>
+            <td>Security Headers</td>
+            <td><code>CWE-79</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Legacy XSS filter (deprecated but still relevant for older browsers)</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Header 'X-XSS-Protection' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-XSS-Protection, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support</div>
+                    <div><strong>OWASP:</strong> A03:2021 Injection | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing Referrer-Policy header on Main Application</td>
+            <td>Security Headers</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Controls how much referrer information is sent with requests</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Header 'Referrer-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Referrer-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: Referrer-Policy: strict-origin-when-cross-origin</div>
+                    <div><strong>OWASP:</strong> A01:2021 Broken Access Control | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing Permissions-Policy header on Main Application</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Controls which browser features the page can use (camera, mic, geolocation)</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Header 'Permissions-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Permissions-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Missing X-Permitted-Cross-Domain-Policies header on Main Application</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents Flash/PDF cross-domain data loading</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Header 'X-Permitted-Cross-Domain-Policies' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Permitted-Cross-Domain-Policies, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Permitted-Cross-Domain-Policies: none</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Information disclosure via Server on Main Application</td>
+            <td>Information Disclosure</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Reveals server software and version — aids attacker reconnaissance</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Server: cloudflare</pre></div>
+                    <div><strong>Recommended Patch (nginx-hardening.conf):</strong><pre># Nginx Hardening Configuration
+# Drop this into the `server` block or as an included conf file.
+
+# Hide Nginx version
+server_tokens off;
+
+# Deny access to hidden files (.env, .git, .DS_Store, etc.)
+location ~ /\.(?!well-known).* {
+    deny all;
+    access_log off;
+    log_not_found off;
+}
+
+# Block unnecessary HTTP methods
+if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PUT|DELETE)$ ) {
+    return 405;
+}
+
+# Specific block for TRACE/TRACK methods
+if ($request_method ~ ^(TRACE|TRACK)$ ) {
+    return 405;
+}
+
+# Block access to common backup and source files
+location ~* (?:\.(?:bak|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$ {
+    deny all;
+}
+
+# Restrict access to Nginx status page
+location /nginx_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;
+    # allow 10.0.0.0/8; # Allow internal network
+    deny all;
+}
+</pre></div>
+                    <div><strong>Impact:</strong> Attackers can use this information to identify specific vulnerabilities in the disclosed software version</div>
+                    <div><strong>Remediation:</strong> Remove or anonymize the Server header to reduce information disclosure</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>Missing Content-Security-Policy header on Authentication Service</td>
+            <td>Security Headers</td>
+            <td><code>CWE-79</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> CSP prevents XSS, clickjacking, and other injection attacks</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Header 'Content-Security-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Content-Security-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins</div>
+                    <div><strong>OWASP:</strong> A03:2021 Injection | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Missing X-Frame-Options header on Authentication Service</td>
+            <td>Security Headers</td>
+            <td><code>CWE-1021</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents clickjacking by controlling framing of the page</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Header 'X-Frame-Options' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Frame-Options, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing X-Content-Type-Options header on Authentication Service</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents MIME-sniffing attacks</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Header 'X-Content-Type-Options' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Content-Type-Options, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Content-Type-Options: nosniff</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Missing X-XSS-Protection header on Authentication Service</td>
+            <td>Security Headers</td>
+            <td><code>CWE-79</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Legacy XSS filter (deprecated but still relevant for older browsers)</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Header 'X-XSS-Protection' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-XSS-Protection, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support</div>
+                    <div><strong>OWASP:</strong> A03:2021 Injection | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing Referrer-Policy header on Authentication Service</td>
+            <td>Security Headers</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Controls how much referrer information is sent with requests</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Header 'Referrer-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Referrer-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: Referrer-Policy: strict-origin-when-cross-origin</div>
+                    <div><strong>OWASP:</strong> A01:2021 Broken Access Control | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing Permissions-Policy header on Authentication Service</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Controls which browser features the page can use (camera, mic, geolocation)</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Header 'Permissions-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Permissions-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Missing X-Permitted-Cross-Domain-Policies header on Authentication Service</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents Flash/PDF cross-domain data loading</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Header 'X-Permitted-Cross-Domain-Policies' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Permitted-Cross-Domain-Policies, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Permitted-Cross-Domain-Policies: none</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Information disclosure via Server on Authentication Service</td>
+            <td>Information Disclosure</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Reveals server software and version — aids attacker reconnaissance</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Server: cloudflare</pre></div>
+                    <div><strong>Recommended Patch (nginx-hardening.conf):</strong><pre># Nginx Hardening Configuration
+# Drop this into the `server` block or as an included conf file.
+
+# Hide Nginx version
+server_tokens off;
+
+# Deny access to hidden files (.env, .git, .DS_Store, etc.)
+location ~ /\.(?!well-known).* {
+    deny all;
+    access_log off;
+    log_not_found off;
+}
+
+# Block unnecessary HTTP methods
+if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PUT|DELETE)$ ) {
+    return 405;
+}
+
+# Specific block for TRACE/TRACK methods
+if ($request_method ~ ^(TRACE|TRACK)$ ) {
+    return 405;
+}
+
+# Block access to common backup and source files
+location ~* (?:\.(?:bak|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$ {
+    deny all;
+}
+
+# Restrict access to Nginx status page
+location /nginx_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;
+    # allow 10.0.0.0/8; # Allow internal network
+    deny all;
+}
+</pre></div>
+                    <div><strong>Impact:</strong> Attackers can use this information to identify specific vulnerabilities in the disclosed software version</div>
+                    <div><strong>Remediation:</strong> Remove or anonymize the Server header to reduce information disclosure</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>Missing Content-Security-Policy header on Login Page</td>
+            <td>Security Headers</td>
+            <td><code>CWE-79</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> CSP prevents XSS, clickjacking, and other injection attacks</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Header 'Content-Security-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Content-Security-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins</div>
+                    <div><strong>OWASP:</strong> A03:2021 Injection | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Missing X-Frame-Options header on Login Page</td>
+            <td>Security Headers</td>
+            <td><code>CWE-1021</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents clickjacking by controlling framing of the page</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Header 'X-Frame-Options' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Frame-Options, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing X-Content-Type-Options header on Login Page</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents MIME-sniffing attacks</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Header 'X-Content-Type-Options' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Content-Type-Options, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Content-Type-Options: nosniff</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Missing X-XSS-Protection header on Login Page</td>
+            <td>Security Headers</td>
+            <td><code>CWE-79</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Legacy XSS filter (deprecated but still relevant for older browsers)</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Header 'X-XSS-Protection' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-XSS-Protection, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support</div>
+                    <div><strong>OWASP:</strong> A03:2021 Injection | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing Referrer-Policy header on Login Page</td>
+            <td>Security Headers</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Controls how much referrer information is sent with requests</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Header 'Referrer-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Referrer-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: Referrer-Policy: strict-origin-when-cross-origin</div>
+                    <div><strong>OWASP:</strong> A01:2021 Broken Access Control | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing Permissions-Policy header on Login Page</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Controls which browser features the page can use (camera, mic, geolocation)</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Header 'Permissions-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Permissions-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Missing X-Permitted-Cross-Domain-Policies header on Login Page</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents Flash/PDF cross-domain data loading</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Header 'X-Permitted-Cross-Domain-Policies' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Permitted-Cross-Domain-Policies, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Permitted-Cross-Domain-Policies: none</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Information disclosure via Server on Login Page</td>
+            <td>Information Disclosure</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Reveals server software and version — aids attacker reconnaissance</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Server: cloudflare</pre></div>
+                    <div><strong>Recommended Patch (nginx-hardening.conf):</strong><pre># Nginx Hardening Configuration
+# Drop this into the `server` block or as an included conf file.
+
+# Hide Nginx version
+server_tokens off;
+
+# Deny access to hidden files (.env, .git, .DS_Store, etc.)
+location ~ /\.(?!well-known).* {
+    deny all;
+    access_log off;
+    log_not_found off;
+}
+
+# Block unnecessary HTTP methods
+if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PUT|DELETE)$ ) {
+    return 405;
+}
+
+# Specific block for TRACE/TRACK methods
+if ($request_method ~ ^(TRACE|TRACK)$ ) {
+    return 405;
+}
+
+# Block access to common backup and source files
+location ~* (?:\.(?:bak|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$ {
+    deny all;
+}
+
+# Restrict access to Nginx status page
+location /nginx_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;
+    # allow 10.0.0.0/8; # Allow internal network
+    deny all;
+}
+</pre></div>
+                    <div><strong>Impact:</strong> Attackers can use this information to identify specific vulnerabilities in the disclosed software version</div>
+                    <div><strong>Remediation:</strong> Remove or anonymize the Server header to reduce information disclosure</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>Missing Content-Security-Policy header on Password Reset</td>
+            <td>Security Headers</td>
+            <td><code>CWE-79</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> CSP prevents XSS, clickjacking, and other injection attacks</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Header 'Content-Security-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Content-Security-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins</div>
+                    <div><strong>OWASP:</strong> A03:2021 Injection | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Missing X-Frame-Options header on Password Reset</td>
+            <td>Security Headers</td>
+            <td><code>CWE-1021</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents clickjacking by controlling framing of the page</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Header 'X-Frame-Options' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Frame-Options, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing X-Content-Type-Options header on Password Reset</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents MIME-sniffing attacks</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Header 'X-Content-Type-Options' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Content-Type-Options, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Content-Type-Options: nosniff</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Missing X-XSS-Protection header on Password Reset</td>
+            <td>Security Headers</td>
+            <td><code>CWE-79</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Legacy XSS filter (deprecated but still relevant for older browsers)</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Header 'X-XSS-Protection' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-XSS-Protection, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support</div>
+                    <div><strong>OWASP:</strong> A03:2021 Injection | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing Referrer-Policy header on Password Reset</td>
+            <td>Security Headers</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Controls how much referrer information is sent with requests</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Header 'Referrer-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Referrer-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: Referrer-Policy: strict-origin-when-cross-origin</div>
+                    <div><strong>OWASP:</strong> A01:2021 Broken Access Control | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Missing Permissions-Policy header on Password Reset</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Controls which browser features the page can use (camera, mic, geolocation)</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Header 'Permissions-Policy' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without Permissions-Policy, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Missing X-Permitted-Cross-Domain-Policies header on Password Reset</td>
+            <td>Security Headers</td>
+            <td><code>CWE-16</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Prevents Flash/PDF cross-domain data loading</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Header 'X-Permitted-Cross-Domain-Policies' is missing</pre></div>
+                    <div><strong>Recommended Patch (security-headers.ts):</strong><pre>import helmet from 'helmet';
+
+/**
+ * Patch for missing HTTP Security Headers.
+ * This fixes missing HSTS, X-Content-Type-Options, X-Frame-Options, etc.
+ */
+export const securityHeadersMiddleware = helmet({
+  // Force HTTPS and prevent downgrade attacks
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  },
+  // Prevent MIME-sniffing
+  contentSecurityPolicy: false, // Handled separately in csp-nextjs.ts
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' }, // Prevent Clickjacking (replaces X-Frame-Options)
+  hidePoweredBy: true, // Removes X-Powered-By: Express
+  ieNoOpen: true,
+  noSniff: true, // Sets X-Content-Type-Options: nosniff
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true // Sets X-XSS-Protection: 1; mode=block
+});
+
+// Usage in Express:
+// app.use(securityHeadersMiddleware);
+</pre></div>
+                    <div><strong>Impact:</strong> Without X-Permitted-Cross-Domain-Policies, the application is vulnerable to attacks that this header mitigates</div>
+                    <div><strong>Remediation:</strong> Add header: X-Permitted-Cross-Domain-Policies: none</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>Information disclosure via Server on Password Reset</td>
+            <td>Information Disclosure</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Reveals server software and version — aids attacker reconnaissance</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Server: cloudflare</pre></div>
+                    <div><strong>Recommended Patch (nginx-hardening.conf):</strong><pre># Nginx Hardening Configuration
+# Drop this into the `server` block or as an included conf file.
+
+# Hide Nginx version
+server_tokens off;
+
+# Deny access to hidden files (.env, .git, .DS_Store, etc.)
+location ~ /\.(?!well-known).* {
+    deny all;
+    access_log off;
+    log_not_found off;
+}
+
+# Block unnecessary HTTP methods
+if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PUT|DELETE)$ ) {
+    return 405;
+}
+
+# Specific block for TRACE/TRACK methods
+if ($request_method ~ ^(TRACE|TRACK)$ ) {
+    return 405;
+}
+
+# Block access to common backup and source files
+location ~* (?:\.(?:bak|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$ {
+    deny all;
+}
+
+# Restrict access to Nginx status page
+location /nginx_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;
+    # allow 10.0.0.0/8; # Allow internal network
+    deny all;
+}
+</pre></div>
+                    <div><strong>Impact:</strong> Attackers can use this information to identify specific vulnerabilities in the disclosed software version</div>
+                    <div><strong>Remediation:</strong> Remove or anonymize the Server header to reduce information disclosure</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>HTTP to HTTPS redirect uses 308 instead of 301 on app.archscale.in</td>
+            <td>SSL/TLS</td>
+            <td><code>CWE-319</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> HTTP to HTTPS redirect uses status code 308. A 301 (Permanent Redirect) is preferred for SEO and browser caching.</div>
+                    <div><strong>Evidence:</strong> <pre>http://app.archscale.in → 308 → https://app.archscale.in/</pre></div>
+                    
+                    <div><strong>Impact:</strong> Temporary redirects may not be cached by browsers, causing unnecessary HTTP requests</div>
+                    <div><strong>Remediation:</strong> Use 301 (Moved Permanently) for HTTP to HTTPS redirects</div>
+                    <div><strong>OWASP:</strong> A02:2021 Cryptographic Failures | <strong>URL:</strong> <a href="http://app.archscale.in" target="_blank">http://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>HTTP to HTTPS redirect uses 308 instead of 301 on auth.archscale.in</td>
+            <td>SSL/TLS</td>
+            <td><code>CWE-319</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> HTTP to HTTPS redirect uses status code 308. A 301 (Permanent Redirect) is preferred for SEO and browser caching.</div>
+                    <div><strong>Evidence:</strong> <pre>http://auth.archscale.in → 308 → https://auth.archscale.in/</pre></div>
+                    
+                    <div><strong>Impact:</strong> Temporary redirects may not be cached by browsers, causing unnecessary HTTP requests</div>
+                    <div><strong>Remediation:</strong> Use 301 (Moved Permanently) for HTTP to HTTPS redirects</div>
+                    <div><strong>OWASP:</strong> A02:2021 Cryptographic Failures | <strong>URL:</strong> <a href="http://auth.archscale.in" target="_blank">http://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>SPF record uses ~all (soft fail — not enforced)</td>
+            <td>DNS Security</td>
+            <td><code>CWE-290</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> The SPF record uses ~all (soft fail). While emails from unauthorized senders will be flagged, they won't be rejected outright.</div>
+                    <div><strong>Evidence:</strong> <pre>SPF: "v=spf1 include:_spf.mail.hostinger.com ~all"</pre></div>
+                    
+                    <div><strong>Impact:</strong> Spoofed emails may still be delivered to some recipients</div>
+                    <div><strong>Remediation:</strong> Consider changing ~all to -all for strict enforcement once all legitimate senders are listed</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="dns://archscale.in/TXT" target="_blank">dns://archscale.in/TXT</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#3b82f620;color:#3b82f6;border:1px solid #3b82f640">LOW</span></td>
+            <td>DMARC policy is set to 'none' (monitoring only)</td>
+            <td>DNS Security</td>
+            <td><code>CWE-290</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> DMARC policy is set to p=none, which only monitors but does not reject or quarantine spoofed emails.</div>
+                    <div><strong>Evidence:</strong> <pre>DMARC: "v=DMARC1; p=none"</pre></div>
+                    
+                    <div><strong>Impact:</strong> Email spoofing is monitored but not prevented</div>
+                    <div><strong>Remediation:</strong> Consider upgrading to p=quarantine or p=reject after reviewing DMARC reports</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="dns://_dmarc.archscale.in/TXT" target="_blank">dns://_dmarc.archscale.in/TXT</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Certificate Transparency reveals 25 subdomains for archscale.in</td>
+            <td>DNS Reconnaissance</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Certificate Transparency logs reveal 25 subdomains for archscale.in. While CT logs are public by design, exposed subdomains increase the attack surface.</div>
+                    <div><strong>Evidence:</strong> <pre>Subdomains found: academy.archscale.in, accounts.archscale.in, admin.archscale.in, ai.archscale.in, api.archscale.in, api.cloud.archscale.in, app.archscale.in, archscale.in, auth.archscale.in, cdn.archscale.in, client.archscale.in, cloud.archscale.in, community.archscale.in, docs.archscale.in, forms.archscale.in...</pre></div>
+                    
+                    <div><strong>Impact:</strong> Each subdomain is a potential attack vector that may host vulnerable services</div>
+                    <div><strong>Remediation:</strong> Audit all discovered subdomains. Ensure staging/dev/internal subdomains are not publicly accessible.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://crt.sh/?q=archscale.in" target="_blank">https://crt.sh/?q=archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>CORS allows all origins (wildcard) on Main Application</td>
+            <td>CORS Misconfiguration</td>
+            <td><code>CWE-942</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> The server sets Access-Control-Allow-Origin to wildcard (*), allowing any website to make cross-origin requests.</div>
+                    <div><strong>Evidence:</strong> <pre>Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: not set</pre></div>
+                    
+                    <div><strong>Impact:</strong> Any website can read responses from this endpoint. If the endpoint returns sensitive data, it can be stolen cross-origin.</div>
+                    <div><strong>Remediation:</strong> Replace wildcard with specific trusted origins. Use a whitelist-based approach.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>CORS allows all origins (wildcard) on Auth Service</td>
+            <td>CORS Misconfiguration</td>
+            <td><code>CWE-942</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> The server sets Access-Control-Allow-Origin to wildcard (*), allowing any website to make cross-origin requests.</div>
+                    <div><strong>Evidence:</strong> <pre>Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: not set</pre></div>
+                    
+                    <div><strong>Impact:</strong> Any website can read responses from this endpoint. If the endpoint returns sensitive data, it can be stolen cross-origin.</div>
+                    <div><strong>Remediation:</strong> Replace wildcard with specific trusted origins. Use a whitelist-based approach.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>CORS allows all origins (wildcard) on Login Page</td>
+            <td>CORS Misconfiguration</td>
+            <td><code>CWE-942</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> The server sets Access-Control-Allow-Origin to wildcard (*), allowing any website to make cross-origin requests.</div>
+                    <div><strong>Evidence:</strong> <pre>Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: not set</pre></div>
+                    
+                    <div><strong>Impact:</strong> Any website can read responses from this endpoint. If the endpoint returns sensitive data, it can be stolen cross-origin.</div>
+                    <div><strong>Remediation:</strong> Replace wildcard with specific trusted origins. Use a whitelist-based approach.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>CORS allows all origins (wildcard) on Password Reset</td>
+            <td>CORS Misconfiguration</td>
+            <td><code>CWE-942</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> The server sets Access-Control-Allow-Origin to wildcard (*), allowing any website to make cross-origin requests.</div>
+                    <div><strong>Evidence:</strong> <pre>Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: not set</pre></div>
+                    
+                    <div><strong>Impact:</strong> Any website can read responses from this endpoint. If the endpoint returns sensitive data, it can be stolen cross-origin.</div>
+                    <div><strong>Remediation:</strong> Replace wildcard with specific trusted origins. Use a whitelist-based approach.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Service port 8080/tcp (HTTP-Alt) open on app.archscale.in</td>
+            <td>Port Scanning</td>
+            <td><code>CWE-284</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Port 8080/tcp (HTTP-Alt) is open. Alternative HTTP — often admin or proxy</div>
+                    <div><strong>Evidence:</strong> <pre>Host: 104.21.70.151
+Port: 8080/tcp (OPEN)
+Service: HTTP-Alt</pre></div>
+                    
+                    <div><strong>Impact:</strong> Exposed HTTP-Alt increases the attack surface</div>
+                    <div><strong>Remediation:</strong> Evaluate if HTTP-Alt needs to be publicly accessible. Consider IP-based access restrictions.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="tcp://app.archscale.in:8080" target="_blank">tcp://app.archscale.in:8080</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Service port 8443/tcp (HTTPS-Alt) open on app.archscale.in</td>
+            <td>Port Scanning</td>
+            <td><code>CWE-284</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Port 8443/tcp (HTTPS-Alt) is open. Alternative HTTPS — often admin panel</div>
+                    <div><strong>Evidence:</strong> <pre>Host: 104.21.70.151
+Port: 8443/tcp (OPEN)
+Service: HTTPS-Alt</pre></div>
+                    
+                    <div><strong>Impact:</strong> Exposed HTTPS-Alt increases the attack surface</div>
+                    <div><strong>Remediation:</strong> Evaluate if HTTPS-Alt needs to be publicly accessible. Consider IP-based access restrictions.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="tcp://app.archscale.in:8443" target="_blank">tcp://app.archscale.in:8443</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Port scan summary: 4 open ports on app.archscale.in</td>
+            <td>Port Scanning</td>
+            <td><code>CWE-284</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> TCP port scan of app.archscale.in (104.21.70.151) found 4 open ports out of 32 tested.</div>
+                    <div><strong>Evidence:</strong> <pre>Open ports:
+     80/tcp  HTTP            
+    443/tcp  HTTPS           
+   8080/tcp  HTTP-Alt        
+   8443/tcp  HTTPS-Alt       </pre></div>
+                    
+                    <div><strong>Impact:</strong> Each open port is a potential entry point for attackers</div>
+                    <div><strong>Remediation:</strong> Close all unnecessary ports. Implement network segmentation and firewall rules.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Service port 8080/tcp (HTTP-Alt) open on auth.archscale.in</td>
+            <td>Port Scanning</td>
+            <td><code>CWE-284</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Port 8080/tcp (HTTP-Alt) is open. Alternative HTTP — often admin or proxy</div>
+                    <div><strong>Evidence:</strong> <pre>Host: 104.21.70.151
+Port: 8080/tcp (OPEN)
+Service: HTTP-Alt</pre></div>
+                    
+                    <div><strong>Impact:</strong> Exposed HTTP-Alt increases the attack surface</div>
+                    <div><strong>Remediation:</strong> Evaluate if HTTP-Alt needs to be publicly accessible. Consider IP-based access restrictions.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="tcp://auth.archscale.in:8080" target="_blank">tcp://auth.archscale.in:8080</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Service port 8443/tcp (HTTPS-Alt) open on auth.archscale.in</td>
+            <td>Port Scanning</td>
+            <td><code>CWE-284</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Port 8443/tcp (HTTPS-Alt) is open. Alternative HTTPS — often admin panel</div>
+                    <div><strong>Evidence:</strong> <pre>Host: 104.21.70.151
+Port: 8443/tcp (OPEN)
+Service: HTTPS-Alt</pre></div>
+                    
+                    <div><strong>Impact:</strong> Exposed HTTPS-Alt increases the attack surface</div>
+                    <div><strong>Remediation:</strong> Evaluate if HTTPS-Alt needs to be publicly accessible. Consider IP-based access restrictions.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="tcp://auth.archscale.in:8443" target="_blank">tcp://auth.archscale.in:8443</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Port scan summary: 4 open ports on auth.archscale.in</td>
+            <td>Port Scanning</td>
+            <td><code>CWE-284</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> TCP port scan of auth.archscale.in (104.21.70.151) found 4 open ports out of 32 tested.</div>
+                    <div><strong>Evidence:</strong> <pre>Open ports:
+     80/tcp  HTTP            
+    443/tcp  HTTPS           
+   8080/tcp  HTTP-Alt        
+   8443/tcp  HTTPS-Alt       </pre></div>
+                    
+                    <div><strong>Impact:</strong> Each open port is a potential entry point for attackers</div>
+                    <div><strong>Remediation:</strong> Close all unnecessary ports. Implement network segmentation and firewall rules.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Technology fingerprint: 3 technologies detected</td>
+            <td>Technology Fingerprinting</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Technology fingerprinting detected 3 technologies across all scanned endpoints.</div>
+                    <div><strong>Evidence:</strong> <pre>  • Cloudflare  (CDN/WAF) — detected in: Main Application (header), Main Application (waf), Login Page (header), Login Page (waf), Auth Service (waf), Auth Service (header)
+  • Cloudflare WAF  (WAF/CDN) — detected in: Auth Service (waf), Main Application (waf), Login Page (waf)
+  • Vercel  (WAF/CDN) — detected in: Auth Service (waf), Main Application (waf), Login Page (waf)</pre></div>
+                    
+                    <div><strong>Impact:</strong> Technology fingerprint helps attackers identify version-specific vulnerabilities and tailor their attacks</div>
+                    <div><strong>Remediation:</strong> Remove version information from response headers. Suppress X-Powered-By. Configure Server header to be generic.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>WAF/CDN detected: Cloudflare WAF, Vercel</td>
+            <td>Technology Fingerprinting</td>
+            <td><code>CWE-693</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Web Application Firewall or CDN detected: Cloudflare WAF, Vercel. This may filter malicious requests and provide DDoS protection.</div>
+                    <div><strong>Evidence:</strong> <pre>Detected: Cloudflare WAF, Vercel</pre></div>
+                    
+                    <div><strong>Impact:</strong> WAF presence indicates an additional security layer, but may provide false sense of security if misconfigured</div>
+                    <div><strong>Remediation:</strong> Ensure WAF rules are properly configured. Regularly update WAF signatures.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No Content-Security-Policy header on Main Application</td>
+            <td>CSP Analysis</td>
+            <td><code>CWE-693</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No Content-Security-Policy header is set. CSP is the primary defense against Cross-Site Scripting (XSS) attacks and other injection-based attacks.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://app.archscale.in
+Content-Security-Policy: (not set)
+Content-Security-Policy-Report-Only: (not set)</pre></div>
+                    <div><strong>Recommended Patch (csp-nextjs.ts):</strong><pre>/**
+ * Patch for missing or weak Content Security Policy (CSP).
+ * To be added to next.config.js
+ */
+
+const cspHeader = `
+  default-src 'self';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google-analytics.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' blob: data: https://www.google-analytics.com;
+  font-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  block-all-mixed-content;
+  upgrade-insecure-requests;
+`.replace(/\s{2,}/g, ' ').trim()
+
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+        ],
+      },
+    ]
+  },
+}
+</pre></div>
+                    <div><strong>Impact:</strong> Without CSP, the application has no browser-enforced protection against XSS, clickjacking via frames, or other injection attacks</div>
+                    <div><strong>Remediation:</strong> Implement a strict Content-Security-Policy. Start with:
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No Content-Security-Policy header on Auth Service</td>
+            <td>CSP Analysis</td>
+            <td><code>CWE-693</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No Content-Security-Policy header is set. CSP is the primary defense against Cross-Site Scripting (XSS) attacks and other injection-based attacks.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in
+Content-Security-Policy: (not set)
+Content-Security-Policy-Report-Only: (not set)</pre></div>
+                    <div><strong>Recommended Patch (csp-nextjs.ts):</strong><pre>/**
+ * Patch for missing or weak Content Security Policy (CSP).
+ * To be added to next.config.js
+ */
+
+const cspHeader = `
+  default-src 'self';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google-analytics.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' blob: data: https://www.google-analytics.com;
+  font-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  block-all-mixed-content;
+  upgrade-insecure-requests;
+`.replace(/\s{2,}/g, ' ').trim()
+
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+        ],
+      },
+    ]
+  },
+}
+</pre></div>
+                    <div><strong>Impact:</strong> Without CSP, the application has no browser-enforced protection against XSS, clickjacking via frames, or other injection attacks</div>
+                    <div><strong>Remediation:</strong> Implement a strict Content-Security-Policy. Start with:
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in" target="_blank">https://auth.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No Content-Security-Policy header on Login Page</td>
+            <td>CSP Analysis</td>
+            <td><code>CWE-693</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No Content-Security-Policy header is set. CSP is the primary defense against Cross-Site Scripting (XSS) attacks and other injection-based attacks.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Content-Security-Policy: (not set)
+Content-Security-Policy-Report-Only: (not set)</pre></div>
+                    <div><strong>Recommended Patch (csp-nextjs.ts):</strong><pre>/**
+ * Patch for missing or weak Content Security Policy (CSP).
+ * To be added to next.config.js
+ */
+
+const cspHeader = `
+  default-src 'self';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google-analytics.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' blob: data: https://www.google-analytics.com;
+  font-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  block-all-mixed-content;
+  upgrade-insecure-requests;
+`.replace(/\s{2,}/g, ' ').trim()
+
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+        ],
+      },
+    ]
+  },
+}
+</pre></div>
+                    <div><strong>Impact:</strong> Without CSP, the application has no browser-enforced protection against XSS, clickjacking via frames, or other injection attacks</div>
+                    <div><strong>Remediation:</strong> Implement a strict Content-Security-Policy. Start with:
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#eab30820;color:#eab308;border:1px solid #eab30840">MEDIUM</span></td>
+            <td>Admin/management subdomains exposed for archscale.in</td>
+            <td>Subdomain Enumeration</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Administrative subdomains found: admin.archscale.in</div>
+                    <div><strong>Evidence:</strong> <pre>admin.archscale.in → 200 | </pre></div>
+                    
+                    <div><strong>Impact:</strong> Admin panels may be targeted for brute-force or exploit attacks</div>
+                    <div><strong>Remediation:</strong> Protect admin subdomains with VPN access, IP restrictions, and multi-factor authentication</div>
+                    <div><strong>OWASP:</strong> A01:2021 Broken Access Control | <strong>URL:</strong> <a href="https://admin.archscale.in/" target="_blank">https://admin.archscale.in/</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Subdomain enumeration discovered 25 subdomains (17 live)</td>
+            <td>Subdomain Enumeration</td>
+            <td><code>CWE-200</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Subdomain enumeration of archscale.in discovered 25 unique subdomains, of which 17 responded to HTTP requests.</div>
+                    <div><strong>Evidence:</strong> <pre>Sources: CT logs (25), DNS brute-force (7)
+Live hosts:
+  app.archscale.in → 200 | cloudflare
+  auth.archscale.in → 200 | cloudflare
+  accounts.archscale.in → 200 | cloudflare
+  client.archscale.in → 200 | cloudflare
+  api.archscale.in → 200 | cloudflare
+  forms.archscale.in → 200 | Vercel
+  cdn.archscale.in → 200 | cloudflare
+  cloud.archscale.in → 200 | cloudflare
+  archscale.in → 200 | cloudflare
+  ai.archscale.in → 200 | cloudflare
+  docs.archscale.in → 200 | cloudflare
+  tasks.archscale.in → 200 | Vercel
+  vendor.archscale.in → 200 | Vercel
+  people.archscale.in → 200 | Vercel
+  www.archscale.in → 200 | cloudflare</pre></div>
+                    
+                    <div><strong>Impact:</strong> Each live subdomain represents a potential attack surface entry point</div>
+                    <div><strong>Remediation:</strong> Review all discovered subdomains. Decommission unused services. Ensure all subdomains have proper security controls.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://crt.sh/?q=archscale.in" target="_blank">https://crt.sh/?q=archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>returnTo parameter appears to validate redirect targets</td>
+            <td>Open Redirect</td>
+            <td><code>CWE-601</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Testing of the returnTo parameter with various bypass payloads did not result in successful open redirects. The server appears to validate redirect targets.</div>
+                    <div><strong>Evidence:</strong> <pre>Tested 23 payloads against https://auth.archscale.in/login?returnTo=<payload>. No external redirects observed.</pre></div>
+                    
+                    <div><strong>Impact:</strong> Low — the redirect validation appears to be functioning correctly</div>
+                    <div><strong>Remediation:</strong> Continue monitoring. Ensure the allowlist is maintained as new subdomains are added.</div>
+                    <div><strong>OWASP:</strong> A01:2021 Broken Access Control | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Error handling appears properly configured</td>
+            <td>Error Handling</td>
+            <td><code>CWE-209</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No information leakage was detected in error responses across all tested payloads and methods.</div>
+                    <div><strong>Evidence:</strong> <pre>Tested 24 error payloads, 6 HTTP methods, and multiple malformed request types</pre></div>
+                    <div><strong>Recommended Patch (nginx-hardening.conf):</strong><pre># Nginx Hardening Configuration
+# Drop this into the `server` block or as an included conf file.
+
+# Hide Nginx version
+server_tokens off;
+
+# Deny access to hidden files (.env, .git, .DS_Store, etc.)
+location ~ /\.(?!well-known).* {
+    deny all;
+    access_log off;
+    log_not_found off;
+}
+
+# Block unnecessary HTTP methods
+if ($request_method !~ ^(GET|HEAD|POST|OPTIONS|PUT|DELETE)$ ) {
+    return 405;
+}
+
+# Specific block for TRACE/TRACK methods
+if ($request_method ~ ^(TRACE|TRACK)$ ) {
+    return 405;
+}
+
+# Block access to common backup and source files
+location ~* (?:\.(?:bak|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$ {
+    deny all;
+}
+
+# Restrict access to Nginx status page
+location /nginx_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;
+    # allow 10.0.0.0/8; # Allow internal network
+    deny all;
+}
+</pre></div>
+                    <div><strong>Impact:</strong> Positive — error pages do not leak sensitive internal details</div>
+                    <div><strong>Remediation:</strong> Continue monitoring. Ensure custom error handlers remain in place after updates.</div>
+                    <div><strong>OWASP:</strong> A05:2021 Security Misconfiguration | <strong>URL:</strong> <a href="https://app.archscale.in" target="_blank">https://app.archscale.in</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No rate limiting detected on Login Page</td>
+            <td>Rate Limiting</td>
+            <td><code>CWE-307</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No rate limiting was detected after sending 15 rapid requests to Login Page. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Requests sent: 15
+Status codes: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
+Avg response time: 0.916s
+Time increase factor: 1.1x</pre></div>
+                    <div><strong>Recommended Patch (rate-limit.ts):</strong><pre>import rateLimit from 'express-rate-limit';
+
+/**
+ * High-confidence patch for missing rate limiting on authentication endpoints.
+ * Prevents credential stuffing and brute-force attacks.
+ */
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per windowMs
+  message: {
+    status: 429,
+    error: 'Too many login attempts from this IP, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Usage in Express:
+// app.post('/api/auth/login', loginLimiter, loginHandler);
+// app.post('/api/auth/register', loginLimiter, registerHandler);
+// app.post('/api/auth/forgot-password', loginLimiter, forgotPasswordHandler);
+</pre></div>
+                    <div><strong>Impact:</strong> Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks</div>
+                    <div><strong>Remediation:</strong> Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</div>
+                    <div><strong>OWASP:</strong> A07:2021 Identification and Authentication Failures | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No rate limiting detected on Login POST</td>
+            <td>Rate Limiting</td>
+            <td><code>CWE-307</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No rate limiting was detected after sending 15 rapid requests to Login POST. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/login
+Requests sent: 15
+Status codes: []
+Avg response time: 1.138s
+Time increase factor: 4.9x</pre></div>
+                    <div><strong>Recommended Patch (rate-limit.ts):</strong><pre>import rateLimit from 'express-rate-limit';
+
+/**
+ * High-confidence patch for missing rate limiting on authentication endpoints.
+ * Prevents credential stuffing and brute-force attacks.
+ */
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per windowMs
+  message: {
+    status: 429,
+    error: 'Too many login attempts from this IP, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Usage in Express:
+// app.post('/api/auth/login', loginLimiter, loginHandler);
+// app.post('/api/auth/register', loginLimiter, registerHandler);
+// app.post('/api/auth/forgot-password', loginLimiter, forgotPasswordHandler);
+</pre></div>
+                    <div><strong>Impact:</strong> Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks</div>
+                    <div><strong>Remediation:</strong> Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</div>
+                    <div><strong>OWASP:</strong> A07:2021 Identification and Authentication Failures | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#6b728020;color:#6b7280;border:1px solid #6b728040">INFO</span></td>
+            <td>Possible progressive delay on Login POST</td>
+            <td>Rate Limiting</td>
+            <td><code>CWE-307</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> Response time increased 4.9x from first to last request, suggesting progressive delay/throttling may be in effect.</div>
+                    <div><strong>Evidence:</strong> <pre>First request: 1.185s
+Last request: 5.777s
+Increase: 4.9x</pre></div>
+                    <div><strong>Recommended Patch (rate-limit.ts):</strong><pre>import rateLimit from 'express-rate-limit';
+
+/**
+ * High-confidence patch for missing rate limiting on authentication endpoints.
+ * Prevents credential stuffing and brute-force attacks.
+ */
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per windowMs
+  message: {
+    status: 429,
+    error: 'Too many login attempts from this IP, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Usage in Express:
+// app.post('/api/auth/login', loginLimiter, loginHandler);
+// app.post('/api/auth/register', loginLimiter, registerHandler);
+// app.post('/api/auth/forgot-password', loginLimiter, forgotPasswordHandler);
+</pre></div>
+                    <div><strong>Impact:</strong> Progressive delay can slow down brute-force attacks</div>
+                    <div><strong>Remediation:</strong> Consider combining progressive delay with hard rate limits (429 responses)</div>
+                    <div><strong>OWASP:</strong> A07:2021 Identification and Authentication Failures | <strong>URL:</strong> <a href="https://auth.archscale.in/login" target="_blank">https://auth.archscale.in/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No rate limiting detected on Password Reset</td>
+            <td>Rate Limiting</td>
+            <td><code>CWE-307</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No rate limiting was detected after sending 15 rapid requests to Password Reset. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/auth/forgot-password
+Requests sent: 15
+Status codes: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
+Avg response time: 0.990s
+Time increase factor: 1.0x</pre></div>
+                    <div><strong>Recommended Patch (rate-limit.ts):</strong><pre>import rateLimit from 'express-rate-limit';
+
+/**
+ * High-confidence patch for missing rate limiting on authentication endpoints.
+ * Prevents credential stuffing and brute-force attacks.
+ */
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per windowMs
+  message: {
+    status: 429,
+    error: 'Too many login attempts from this IP, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Usage in Express:
+// app.post('/api/auth/login', loginLimiter, loginHandler);
+// app.post('/api/auth/register', loginLimiter, registerHandler);
+// app.post('/api/auth/forgot-password', loginLimiter, forgotPasswordHandler);
+</pre></div>
+                    <div><strong>Impact:</strong> Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks</div>
+                    <div><strong>Remediation:</strong> Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</div>
+                    <div><strong>OWASP:</strong> A07:2021 Identification and Authentication Failures | <strong>URL:</strong> <a href="https://auth.archscale.in/auth/forgot-password" target="_blank">https://auth.archscale.in/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No rate limiting detected on API Login</td>
+            <td>Rate Limiting</td>
+            <td><code>CWE-307</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No rate limiting was detected after sending 15 rapid requests to API Login. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/api/auth/login
+Requests sent: 15
+Status codes: []
+Avg response time: 1.085s
+Time increase factor: 0.7x</pre></div>
+                    <div><strong>Recommended Patch (rate-limit.ts):</strong><pre>import rateLimit from 'express-rate-limit';
+
+/**
+ * High-confidence patch for missing rate limiting on authentication endpoints.
+ * Prevents credential stuffing and brute-force attacks.
+ */
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per windowMs
+  message: {
+    status: 429,
+    error: 'Too many login attempts from this IP, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Usage in Express:
+// app.post('/api/auth/login', loginLimiter, loginHandler);
+// app.post('/api/auth/register', loginLimiter, registerHandler);
+// app.post('/api/auth/forgot-password', loginLimiter, forgotPasswordHandler);
+</pre></div>
+                    <div><strong>Impact:</strong> Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks</div>
+                    <div><strong>Remediation:</strong> Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</div>
+                    <div><strong>OWASP:</strong> A07:2021 Identification and Authentication Failures | <strong>URL:</strong> <a href="https://auth.archscale.in/api/auth/login" target="_blank">https://auth.archscale.in/api/auth/login</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No rate limiting detected on API Register</td>
+            <td>Rate Limiting</td>
+            <td><code>CWE-307</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No rate limiting was detected after sending 15 rapid requests to API Register. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/api/auth/register
+Requests sent: 15
+Status codes: []
+Avg response time: 1.487s
+Time increase factor: 1.0x</pre></div>
+                    <div><strong>Recommended Patch (rate-limit.ts):</strong><pre>import rateLimit from 'express-rate-limit';
+
+/**
+ * High-confidence patch for missing rate limiting on authentication endpoints.
+ * Prevents credential stuffing and brute-force attacks.
+ */
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per windowMs
+  message: {
+    status: 429,
+    error: 'Too many login attempts from this IP, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Usage in Express:
+// app.post('/api/auth/login', loginLimiter, loginHandler);
+// app.post('/api/auth/register', loginLimiter, registerHandler);
+// app.post('/api/auth/forgot-password', loginLimiter, forgotPasswordHandler);
+</pre></div>
+                    <div><strong>Impact:</strong> Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks</div>
+                    <div><strong>Remediation:</strong> Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</div>
+                    <div><strong>OWASP:</strong> A07:2021 Identification and Authentication Failures | <strong>URL:</strong> <a href="https://auth.archscale.in/api/auth/register" target="_blank">https://auth.archscale.in/api/auth/register</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No rate limiting detected on API Password Reset</td>
+            <td>Rate Limiting</td>
+            <td><code>CWE-307</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No rate limiting was detected after sending 15 rapid requests to API Password Reset. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/api/auth/forgot-password
+Requests sent: 15
+Status codes: []
+Avg response time: 0.777s
+Time increase factor: 1.0x</pre></div>
+                    <div><strong>Recommended Patch (rate-limit.ts):</strong><pre>import rateLimit from 'express-rate-limit';
+
+/**
+ * High-confidence patch for missing rate limiting on authentication endpoints.
+ * Prevents credential stuffing and brute-force attacks.
+ */
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per windowMs
+  message: {
+    status: 429,
+    error: 'Too many login attempts from this IP, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Usage in Express:
+// app.post('/api/auth/login', loginLimiter, loginHandler);
+// app.post('/api/auth/register', loginLimiter, registerHandler);
+// app.post('/api/auth/forgot-password', loginLimiter, forgotPasswordHandler);
+</pre></div>
+                    <div><strong>Impact:</strong> Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks</div>
+                    <div><strong>Remediation:</strong> Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</div>
+                    <div><strong>OWASP:</strong> A07:2021 Identification and Authentication Failures | <strong>URL:</strong> <a href="https://auth.archscale.in/api/auth/forgot-password" target="_blank">https://auth.archscale.in/api/auth/forgot-password</a></div>
+                </div>
+            </td>
+        </tr>
+        <tr class="finding-row" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <td><span class="sev-badge" style="background:#f9731620;color:#f97316;border:1px solid #f9731640">HIGH</span></td>
+            <td>No rate limiting detected on API v1 Login</td>
+            <td>Rate Limiting</td>
+            <td><code>CWE-307</code></td>
+        </tr>
+        <tr class="finding-detail hidden">
+            <td colspan="4">
+                <div class="detail-grid">
+                    <div><strong>Description:</strong> No rate limiting was detected after sending 15 rapid requests to API v1 Login. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.</div>
+                    <div><strong>Evidence:</strong> <pre>URL: https://auth.archscale.in/api/v1/auth/login
+Requests sent: 15
+Status codes: []
+Avg response time: 0.695s
+Time increase factor: 1.0x</pre></div>
+                    <div><strong>Recommended Patch (rate-limit.ts):</strong><pre>import rateLimit from 'express-rate-limit';
+
+/**
+ * High-confidence patch for missing rate limiting on authentication endpoints.
+ * Prevents credential stuffing and brute-force attacks.
+ */
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per windowMs
+  message: {
+    status: 429,
+    error: 'Too many login attempts from this IP, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Usage in Express:
+// app.post('/api/auth/login', loginLimiter, loginHandler);
+// app.post('/api/auth/register', loginLimiter, registerHandler);
+// app.post('/api/auth/forgot-password', loginLimiter, forgotPasswordHandler);
+</pre></div>
+                    <div><strong>Impact:</strong> Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks</div>
+                    <div><strong>Remediation:</strong> Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</div>
+                    <div><strong>OWASP:</strong> A07:2021 Identification and Authentication Failures | <strong>URL:</strong> <a href="https://auth.archscale.in/api/v1/auth/login" target="_blank">https://auth.archscale.in/api/v1/auth/login</a></div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Hardening Plan -->
+    <h2>🛠️ Hardening Recommendations</h2>
+    <h3>Immediate (P0/P1)</h3><ul><li><strong>Missing Content-Security-Policy header on Main Application</strong>: Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins</li><li><strong>Missing Content-Security-Policy header on Authentication Service</strong>: Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins</li><li><strong>Missing Content-Security-Policy header on Login Page</strong>: Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins</li><li><strong>Missing Content-Security-Policy header on Password Reset</strong>: Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins</li><li><strong>No Content-Security-Policy header on Main Application</strong>: Implement a strict Content-Security-Policy. Start with:
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'</li><li><strong>No Content-Security-Policy header on Auth Service</strong>: Implement a strict Content-Security-Policy. Start with:
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'</li><li><strong>No Content-Security-Policy header on Login Page</strong>: Implement a strict Content-Security-Policy. Start with:
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'</li><li><strong>No rate limiting detected on Login Page</strong>: Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</li><li><strong>No rate limiting detected on Login POST</strong>: Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</li><li><strong>No rate limiting detected on Password Reset</strong>: Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</li><li><strong>No rate limiting detected on API Login</strong>: Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</li><li><strong>No rate limiting detected on API Register</strong>: Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</li><li><strong>No rate limiting detected on API Password Reset</strong>: Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</li><li><strong>No rate limiting detected on API v1 Login</strong>: Implement rate limiting on all authentication endpoints:
+• Return 429 Too Many Requests after threshold
+• Include Retry-After header
+• Implement progressive delays
+• Consider CAPTCHA after N failed attempts
+• Implement IP-based and account-based rate limits</li></ul><h3>Short-term (P2)</h3><ul><li><strong>Missing X-Frame-Options header on Main Application</strong>: Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)</li><li><strong>Missing X-Frame-Options header on Authentication Service</strong>: Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)</li><li><strong>Missing X-Frame-Options header on Login Page</strong>: Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)</li><li><strong>Missing X-Frame-Options header on Password Reset</strong>: Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)</li><li><strong>CORS allows all origins (wildcard) on Main Application</strong>: Replace wildcard with specific trusted origins. Use a whitelist-based approach.</li><li><strong>CORS allows all origins (wildcard) on Auth Service</strong>: Replace wildcard with specific trusted origins. Use a whitelist-based approach.</li><li><strong>CORS allows all origins (wildcard) on Login Page</strong>: Replace wildcard with specific trusted origins. Use a whitelist-based approach.</li><li><strong>CORS allows all origins (wildcard) on Password Reset</strong>: Replace wildcard with specific trusted origins. Use a whitelist-based approach.</li><li><strong>Service port 8080/tcp (HTTP-Alt) open on app.archscale.in</strong>: Evaluate if HTTP-Alt needs to be publicly accessible. Consider IP-based access restrictions.</li><li><strong>Service port 8443/tcp (HTTPS-Alt) open on app.archscale.in</strong>: Evaluate if HTTPS-Alt needs to be publicly accessible. Consider IP-based access restrictions.</li><li><strong>Service port 8080/tcp (HTTP-Alt) open on auth.archscale.in</strong>: Evaluate if HTTP-Alt needs to be publicly accessible. Consider IP-based access restrictions.</li><li><strong>Service port 8443/tcp (HTTPS-Alt) open on auth.archscale.in</strong>: Evaluate if HTTPS-Alt needs to be publicly accessible. Consider IP-based access restrictions.</li><li><strong>Admin/management subdomains exposed for archscale.in</strong>: Protect admin subdomains with VPN access, IP restrictions, and multi-factor authentication</li></ul><h3>Long-term (P3/P4)</h3><ul><li><strong>Missing X-Content-Type-Options header on Main Application</strong>: Add header: X-Content-Type-Options: nosniff</li><li><strong>Missing Referrer-Policy header on Main Application</strong>: Add header: Referrer-Policy: strict-origin-when-cross-origin</li><li><strong>Missing Permissions-Policy header on Main Application</strong>: Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()</li><li><strong>Information disclosure via Server on Main Application</strong>: Remove or anonymize the Server header to reduce information disclosure</li><li><strong>Missing X-Content-Type-Options header on Authentication Service</strong>: Add header: X-Content-Type-Options: nosniff</li><li><strong>Missing Referrer-Policy header on Authentication Service</strong>: Add header: Referrer-Policy: strict-origin-when-cross-origin</li><li><strong>Missing Permissions-Policy header on Authentication Service</strong>: Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()</li><li><strong>Information disclosure via Server on Authentication Service</strong>: Remove or anonymize the Server header to reduce information disclosure</li><li><strong>Missing X-Content-Type-Options header on Login Page</strong>: Add header: X-Content-Type-Options: nosniff</li><li><strong>Missing Referrer-Policy header on Login Page</strong>: Add header: Referrer-Policy: strict-origin-when-cross-origin</li><li><strong>Missing Permissions-Policy header on Login Page</strong>: Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()</li><li><strong>Information disclosure via Server on Login Page</strong>: Remove or anonymize the Server header to reduce information disclosure</li><li><strong>Missing X-Content-Type-Options header on Password Reset</strong>: Add header: X-Content-Type-Options: nosniff</li><li><strong>Missing Referrer-Policy header on Password Reset</strong>: Add header: Referrer-Policy: strict-origin-when-cross-origin</li><li><strong>Missing Permissions-Policy header on Password Reset</strong>: Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()</li><li><strong>Information disclosure via Server on Password Reset</strong>: Remove or anonymize the Server header to reduce information disclosure</li><li><strong>SPF record uses ~all (soft fail — not enforced)</strong>: Consider changing ~all to -all for strict enforcement once all legitimate senders are listed</li><li><strong>DMARC policy is set to 'none' (monitoring only)</strong>: Consider upgrading to p=quarantine or p=reject after reviewing DMARC reports</li><li><strong>Missing X-XSS-Protection header on Main Application</strong>: Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support</li><li><strong>Missing X-Permitted-Cross-Domain-Policies header on Main Application</strong>: Add header: X-Permitted-Cross-Domain-Policies: none</li><li><strong>Missing X-XSS-Protection header on Authentication Service</strong>: Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support</li><li><strong>Missing X-Permitted-Cross-Domain-Policies header on Authentication Service</strong>: Add header: X-Permitted-Cross-Domain-Policies: none</li><li><strong>Missing X-XSS-Protection header on Login Page</strong>: Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support</li><li><strong>Missing X-Permitted-Cross-Domain-Policies header on Login Page</strong>: Add header: X-Permitted-Cross-Domain-Policies: none</li><li><strong>Missing X-XSS-Protection header on Password Reset</strong>: Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support</li><li><strong>Missing X-Permitted-Cross-Domain-Policies header on Password Reset</strong>: Add header: X-Permitted-Cross-Domain-Policies: none</li><li><strong>HTTP to HTTPS redirect uses 308 instead of 301 on app.archscale.in</strong>: Use 301 (Moved Permanently) for HTTP to HTTPS redirects</li><li><strong>HTTP to HTTPS redirect uses 308 instead of 301 on auth.archscale.in</strong>: Use 301 (Moved Permanently) for HTTP to HTTPS redirects</li><li><strong>Certificate Transparency reveals 25 subdomains for archscale.in</strong>: Audit all discovered subdomains. Ensure staging/dev/internal subdomains are not publicly accessible.</li><li><strong>Port scan summary: 4 open ports on app.archscale.in</strong>: Close all unnecessary ports. Implement network segmentation and firewall rules.</li><li><strong>Port scan summary: 4 open ports on auth.archscale.in</strong>: Close all unnecessary ports. Implement network segmentation and firewall rules.</li><li><strong>Technology fingerprint: 3 technologies detected</strong>: Remove version information from response headers. Suppress X-Powered-By. Configure Server header to be generic.</li><li><strong>WAF/CDN detected: Cloudflare WAF, Vercel</strong>: Ensure WAF rules are properly configured. Regularly update WAF signatures.</li><li><strong>Subdomain enumeration discovered 25 subdomains (17 live)</strong>: Review all discovered subdomains. Decommission unused services. Ensure all subdomains have proper security controls.</li><li><strong>returnTo parameter appears to validate redirect targets</strong>: Continue monitoring. Ensure the allowlist is maintained as new subdomains are added.</li><li><strong>Error handling appears properly configured</strong>: Continue monitoring. Ensure custom error handlers remain in place after updates.</li><li><strong>Possible progressive delay on Login POST</strong>: Consider combining progressive delay with hard rate limits (429 responses)</li></ul>
+
+    <div class="footer">
+        Aegis Vanguard Scanner v2.0.0 |
+        ArchScale Guild Intern Technology Hackathon |
+        Report generated 2026-09-10 23:23:29 UTC
+    </div>
+</div>
+</body>
+</html>

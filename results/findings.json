@@ -1,0 +1,1752 @@
+{
+  "meta": {
+    "tool": "AS-09 Security Audit Scanner",
+    "version": "2.0.0",
+    "target": "https://app.archscale.in",
+    "auth_domain": "https://auth.archscale.in",
+    "scope": "Comprehensive multi-tenant security assessment",
+    "timestamp": "2026-09-10T17:53:29.718638+00:00",
+    "duration_seconds": 144.59,
+    "scanner_modules": [
+      "Security Headers",
+      "Open Redirects",
+      "OAuth Flow",
+      "Information Disclosure",
+      "CORS Configuration",
+      "SSL/TLS",
+      "DNS Reconnaissance",
+      "Subdomain Enumeration",
+      "Port Scanner",
+      "Technology Fingerprinting",
+      "Cookie Security",
+      "CSP Analysis",
+      "Rate Limiting",
+      "Error Handling"
+    ],
+    "module_results": {
+      "headers": {
+        "label": "Security Headers",
+        "findings_count": 32,
+        "duration": 3.65
+      },
+      "ssl": {
+        "label": "SSL/TLS",
+        "findings_count": 2,
+        "duration": 1.41
+      },
+      "oauth": {
+        "label": "OAuth Flow",
+        "findings_count": 0,
+        "duration": 13.65
+      },
+      "dns": {
+        "label": "DNS Reconnaissance",
+        "findings_count": 3,
+        "duration": 9.06
+      },
+      "cors": {
+        "label": "CORS Configuration",
+        "findings_count": 4,
+        "duration": 20.46
+      },
+      "ports": {
+        "label": "Port Scanner",
+        "findings_count": 6,
+        "duration": 7.24
+      },
+      "tech": {
+        "label": "Technology Fingerprinting",
+        "findings_count": 2,
+        "duration": 3.45
+      },
+      "cookies": {
+        "label": "Cookie Security",
+        "findings_count": 0,
+        "duration": 3.2
+      },
+      "csp": {
+        "label": "CSP Analysis",
+        "findings_count": 3,
+        "duration": 2.5
+      },
+      "subdomains": {
+        "label": "Subdomain Enumeration",
+        "findings_count": 2,
+        "duration": 20.9
+      },
+      "info": {
+        "label": "Information Disclosure",
+        "findings_count": 0,
+        "duration": 36.55
+      },
+      "redirects": {
+        "label": "Open Redirects",
+        "findings_count": 1,
+        "duration": 44.58
+      },
+      "errors": {
+        "label": "Error Handling",
+        "findings_count": 1,
+        "duration": 82.7
+      },
+      "ratelimit": {
+        "label": "Rate Limiting",
+        "findings_count": 8,
+        "duration": 120.02
+      }
+    }
+  },
+  "executive_summary": {
+    "scope_statement": "This assessment evaluates the security posture of the ArchScale multi-tenant platform. It covers authentication surfaces, OAuth configuration, HTTP security headers, SSL/TLS, CORS policies, DNS infrastructure, subdomain enumeration, port scanning, technology fingerprinting, cookie security, Content Security Policy, rate limiting, and error handling.",
+    "security_score": {
+      "score": 0,
+      "grade": "F",
+      "total_findings": 64,
+      "severity_counts": {
+        "critical": 0,
+        "high": 14,
+        "medium": 13,
+        "low": 18,
+        "info": 19
+      },
+      "deductions": 368
+    },
+    "key_risks": [
+      {
+        "title": "Missing Content-Security-Policy header on Main Application",
+        "severity": "high",
+        "category": "Security Headers"
+      },
+      {
+        "title": "Missing Content-Security-Policy header on Authentication Service",
+        "severity": "high",
+        "category": "Security Headers"
+      },
+      {
+        "title": "Missing Content-Security-Policy header on Login Page",
+        "severity": "high",
+        "category": "Security Headers"
+      },
+      {
+        "title": "Missing Content-Security-Policy header on Password Reset",
+        "severity": "high",
+        "category": "Security Headers"
+      },
+      {
+        "title": "No Content-Security-Policy header on Main Application",
+        "severity": "high",
+        "category": "CSP Analysis"
+      },
+      {
+        "title": "No Content-Security-Policy header on Auth Service",
+        "severity": "high",
+        "category": "CSP Analysis"
+      },
+      {
+        "title": "No Content-Security-Policy header on Login Page",
+        "severity": "high",
+        "category": "CSP Analysis"
+      },
+      {
+        "title": "No rate limiting detected on Login Page",
+        "severity": "high",
+        "category": "Rate Limiting"
+      },
+      {
+        "title": "No rate limiting detected on Login POST",
+        "severity": "high",
+        "category": "Rate Limiting"
+      },
+      {
+        "title": "No rate limiting detected on Password Reset",
+        "severity": "high",
+        "category": "Rate Limiting"
+      },
+      {
+        "title": "No rate limiting detected on API Login",
+        "severity": "high",
+        "category": "Rate Limiting"
+      },
+      {
+        "title": "No rate limiting detected on API Register",
+        "severity": "high",
+        "category": "Rate Limiting"
+      },
+      {
+        "title": "No rate limiting detected on API Password Reset",
+        "severity": "high",
+        "category": "Rate Limiting"
+      },
+      {
+        "title": "No rate limiting detected on API v1 Login",
+        "severity": "high",
+        "category": "Rate Limiting"
+      }
+    ]
+  },
+  "surface_map": {
+    "domains": [
+      "_dmarc.archscale.in",
+      "app.archscale.in:8080",
+      "auth.archscale.in",
+      "auth.archscale.in:8443",
+      "auth.archscale.in:8080",
+      "archscale.in",
+      "app.archscale.in:8443",
+      "crt.sh",
+      "app.archscale.in",
+      "admin.archscale.in"
+    ],
+    "endpoint_count": 18,
+    "categories": {
+      "Security Headers": {
+        "count": 28,
+        "severities": [
+          "high",
+          "medium",
+          "low",
+          "info",
+          "low",
+          "low",
+          "info",
+          "high",
+          "medium",
+          "low",
+          "info",
+          "low",
+          "low",
+          "info",
+          "high",
+          "medium",
+          "low",
+          "info",
+          "low",
+          "low",
+          "info",
+          "high",
+          "medium",
+          "low",
+          "info",
+          "low",
+          "low",
+          "info"
+        ]
+      },
+      "Information Disclosure": {
+        "count": 4,
+        "severities": [
+          "low",
+          "low",
+          "low",
+          "low"
+        ]
+      },
+      "SSL/TLS": {
+        "count": 2,
+        "severities": [
+          "info",
+          "info"
+        ]
+      },
+      "DNS Security": {
+        "count": 2,
+        "severities": [
+          "low",
+          "low"
+        ]
+      },
+      "DNS Reconnaissance": {
+        "count": 1,
+        "severities": [
+          "info"
+        ]
+      },
+      "CORS Misconfiguration": {
+        "count": 4,
+        "severities": [
+          "medium",
+          "medium",
+          "medium",
+          "medium"
+        ]
+      },
+      "Port Scanning": {
+        "count": 6,
+        "severities": [
+          "medium",
+          "medium",
+          "info",
+          "medium",
+          "medium",
+          "info"
+        ]
+      },
+      "Technology Fingerprinting": {
+        "count": 2,
+        "severities": [
+          "info",
+          "info"
+        ]
+      },
+      "CSP Analysis": {
+        "count": 3,
+        "severities": [
+          "high",
+          "high",
+          "high"
+        ]
+      },
+      "Subdomain Enumeration": {
+        "count": 2,
+        "severities": [
+          "medium",
+          "info"
+        ]
+      },
+      "Open Redirect": {
+        "count": 1,
+        "severities": [
+          "info"
+        ]
+      },
+      "Error Handling": {
+        "count": 1,
+        "severities": [
+          "info"
+        ]
+      },
+      "Rate Limiting": {
+        "count": 8,
+        "severities": [
+          "high",
+          "high",
+          "info",
+          "high",
+          "high",
+          "high",
+          "high",
+          "high"
+        ]
+      }
+    },
+    "technologies_detected": [
+      "Cloudflare",
+      "Cloudflare WAF",
+      "Vercel"
+    ],
+    "attack_vectors": [
+      {
+        "name": "Authentication Surface",
+        "endpoints": [
+          "https://auth.archscale.in/login",
+          "https://auth.archscale.in/auth/forgot-password"
+        ],
+        "risk": "high"
+      },
+      {
+        "name": "OAuth Integration",
+        "endpoints": [
+          "Google OAuth flow",
+          "OAuth callback"
+        ],
+        "risk": "medium"
+      },
+      {
+        "name": "Client-Side Assets",
+        "endpoints": [
+          "JavaScript bundles",
+          "Source maps",
+          "Static files"
+        ],
+        "risk": "low"
+      },
+      {
+        "name": "API Surface",
+        "endpoints": [
+          "Unauthenticated API endpoints"
+        ],
+        "risk": "high"
+      },
+      {
+        "name": "Infrastructure",
+        "endpoints": [
+          "SSL/TLS",
+          "DNS",
+          "HTTP headers"
+        ],
+        "risk": "medium"
+      },
+      {
+        "name": "DNS/Subdomains",
+        "endpoints": [
+          "CT logs",
+          "DNS brute-force",
+          "Zone transfers"
+        ],
+        "risk": "medium"
+      },
+      {
+        "name": "Network Services",
+        "endpoints": [
+          "TCP ports",
+          "Service banners"
+        ],
+        "risk": "medium"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "AS09-00002",
+      "title": "Missing Content-Security-Policy header on Main Application",
+      "category": "Security Headers",
+      "severity": "high",
+      "description": "CSP prevents XSS, clickjacking, and other injection attacks",
+      "evidence": "URL: https://app.archscale.in\nHeader 'Content-Security-Policy' is missing",
+      "impact": "Without Content-Security-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins",
+      "cwe": "CWE-79",
+      "owasp": "A03:2021 Injection",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.441048+00:00"
+    },
+    {
+      "id": "AS09-00003",
+      "title": "Missing X-Frame-Options header on Main Application",
+      "category": "Security Headers",
+      "severity": "medium",
+      "description": "Prevents clickjacking by controlling framing of the page",
+      "evidence": "URL: https://app.archscale.in\nHeader 'X-Frame-Options' is missing",
+      "impact": "Without X-Frame-Options, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)",
+      "cwe": "CWE-1021",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.441069+00:00"
+    },
+    {
+      "id": "AS09-00004",
+      "title": "Missing X-Content-Type-Options header on Main Application",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Prevents MIME-sniffing attacks",
+      "evidence": "URL: https://app.archscale.in\nHeader 'X-Content-Type-Options' is missing",
+      "impact": "Without X-Content-Type-Options, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Content-Type-Options: nosniff",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.441077+00:00"
+    },
+    {
+      "id": "AS09-00005",
+      "title": "Missing X-XSS-Protection header on Main Application",
+      "category": "Security Headers",
+      "severity": "info",
+      "description": "Legacy XSS filter (deprecated but still relevant for older browsers)",
+      "evidence": "URL: https://app.archscale.in\nHeader 'X-XSS-Protection' is missing",
+      "impact": "Without X-XSS-Protection, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support",
+      "cwe": "CWE-79",
+      "owasp": "A03:2021 Injection",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.441082+00:00"
+    },
+    {
+      "id": "AS09-00006",
+      "title": "Missing Referrer-Policy header on Main Application",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Controls how much referrer information is sent with requests",
+      "evidence": "URL: https://app.archscale.in\nHeader 'Referrer-Policy' is missing",
+      "impact": "Without Referrer-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: Referrer-Policy: strict-origin-when-cross-origin",
+      "cwe": "CWE-200",
+      "owasp": "A01:2021 Broken Access Control",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.441087+00:00"
+    },
+    {
+      "id": "AS09-00007",
+      "title": "Missing Permissions-Policy header on Main Application",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Controls which browser features the page can use (camera, mic, geolocation)",
+      "evidence": "URL: https://app.archscale.in\nHeader 'Permissions-Policy' is missing",
+      "impact": "Without Permissions-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.441093+00:00"
+    },
+    {
+      "id": "AS09-00008",
+      "title": "Missing X-Permitted-Cross-Domain-Policies header on Main Application",
+      "category": "Security Headers",
+      "severity": "info",
+      "description": "Prevents Flash/PDF cross-domain data loading",
+      "evidence": "URL: https://app.archscale.in\nHeader 'X-Permitted-Cross-Domain-Policies' is missing",
+      "impact": "Without X-Permitted-Cross-Domain-Policies, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Permitted-Cross-Domain-Policies: none",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.441097+00:00"
+    },
+    {
+      "id": "AS09-00009",
+      "title": "Information disclosure via Server on Main Application",
+      "category": "Information Disclosure",
+      "severity": "low",
+      "description": "Reveals server software and version — aids attacker reconnaissance",
+      "evidence": "URL: https://app.archscale.in\nServer: cloudflare",
+      "impact": "Attackers can use this information to identify specific vulnerabilities in the disclosed software version",
+      "remediation": "Remove or anonymize the Server header to reduce information disclosure",
+      "cwe": "CWE-200",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.441103+00:00"
+    },
+    {
+      "id": "AS09-00010",
+      "title": "Missing Content-Security-Policy header on Authentication Service",
+      "category": "Security Headers",
+      "severity": "high",
+      "description": "CSP prevents XSS, clickjacking, and other injection attacks",
+      "evidence": "URL: https://auth.archscale.in\nHeader 'Content-Security-Policy' is missing",
+      "impact": "Without Content-Security-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins",
+      "cwe": "CWE-79",
+      "owasp": "A03:2021 Injection",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.386392+00:00"
+    },
+    {
+      "id": "AS09-00011",
+      "title": "Missing X-Frame-Options header on Authentication Service",
+      "category": "Security Headers",
+      "severity": "medium",
+      "description": "Prevents clickjacking by controlling framing of the page",
+      "evidence": "URL: https://auth.archscale.in\nHeader 'X-Frame-Options' is missing",
+      "impact": "Without X-Frame-Options, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)",
+      "cwe": "CWE-1021",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.386411+00:00"
+    },
+    {
+      "id": "AS09-00012",
+      "title": "Missing X-Content-Type-Options header on Authentication Service",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Prevents MIME-sniffing attacks",
+      "evidence": "URL: https://auth.archscale.in\nHeader 'X-Content-Type-Options' is missing",
+      "impact": "Without X-Content-Type-Options, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Content-Type-Options: nosniff",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.386419+00:00"
+    },
+    {
+      "id": "AS09-00013",
+      "title": "Missing X-XSS-Protection header on Authentication Service",
+      "category": "Security Headers",
+      "severity": "info",
+      "description": "Legacy XSS filter (deprecated but still relevant for older browsers)",
+      "evidence": "URL: https://auth.archscale.in\nHeader 'X-XSS-Protection' is missing",
+      "impact": "Without X-XSS-Protection, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support",
+      "cwe": "CWE-79",
+      "owasp": "A03:2021 Injection",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.386425+00:00"
+    },
+    {
+      "id": "AS09-00014",
+      "title": "Missing Referrer-Policy header on Authentication Service",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Controls how much referrer information is sent with requests",
+      "evidence": "URL: https://auth.archscale.in\nHeader 'Referrer-Policy' is missing",
+      "impact": "Without Referrer-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: Referrer-Policy: strict-origin-when-cross-origin",
+      "cwe": "CWE-200",
+      "owasp": "A01:2021 Broken Access Control",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.386430+00:00"
+    },
+    {
+      "id": "AS09-00015",
+      "title": "Missing Permissions-Policy header on Authentication Service",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Controls which browser features the page can use (camera, mic, geolocation)",
+      "evidence": "URL: https://auth.archscale.in\nHeader 'Permissions-Policy' is missing",
+      "impact": "Without Permissions-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.386440+00:00"
+    },
+    {
+      "id": "AS09-00016",
+      "title": "Missing X-Permitted-Cross-Domain-Policies header on Authentication Service",
+      "category": "Security Headers",
+      "severity": "info",
+      "description": "Prevents Flash/PDF cross-domain data loading",
+      "evidence": "URL: https://auth.archscale.in\nHeader 'X-Permitted-Cross-Domain-Policies' is missing",
+      "impact": "Without X-Permitted-Cross-Domain-Policies, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Permitted-Cross-Domain-Policies: none",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.386447+00:00"
+    },
+    {
+      "id": "AS09-00017",
+      "title": "Information disclosure via Server on Authentication Service",
+      "category": "Information Disclosure",
+      "severity": "low",
+      "description": "Reveals server software and version — aids attacker reconnaissance",
+      "evidence": "URL: https://auth.archscale.in\nServer: cloudflare",
+      "impact": "Attackers can use this information to identify specific vulnerabilities in the disclosed software version",
+      "remediation": "Remove or anonymize the Server header to reduce information disclosure",
+      "cwe": "CWE-200",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.386454+00:00"
+    },
+    {
+      "id": "AS09-00018",
+      "title": "Missing Content-Security-Policy header on Login Page",
+      "category": "Security Headers",
+      "severity": "high",
+      "description": "CSP prevents XSS, clickjacking, and other injection attacks",
+      "evidence": "URL: https://auth.archscale.in/login\nHeader 'Content-Security-Policy' is missing",
+      "impact": "Without Content-Security-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins",
+      "cwe": "CWE-79",
+      "owasp": "A03:2021 Injection",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.988636+00:00"
+    },
+    {
+      "id": "AS09-00019",
+      "title": "Missing X-Frame-Options header on Login Page",
+      "category": "Security Headers",
+      "severity": "medium",
+      "description": "Prevents clickjacking by controlling framing of the page",
+      "evidence": "URL: https://auth.archscale.in/login\nHeader 'X-Frame-Options' is missing",
+      "impact": "Without X-Frame-Options, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)",
+      "cwe": "CWE-1021",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.988657+00:00"
+    },
+    {
+      "id": "AS09-00020",
+      "title": "Missing X-Content-Type-Options header on Login Page",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Prevents MIME-sniffing attacks",
+      "evidence": "URL: https://auth.archscale.in/login\nHeader 'X-Content-Type-Options' is missing",
+      "impact": "Without X-Content-Type-Options, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Content-Type-Options: nosniff",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.988668+00:00"
+    },
+    {
+      "id": "AS09-00021",
+      "title": "Missing X-XSS-Protection header on Login Page",
+      "category": "Security Headers",
+      "severity": "info",
+      "description": "Legacy XSS filter (deprecated but still relevant for older browsers)",
+      "evidence": "URL: https://auth.archscale.in/login\nHeader 'X-XSS-Protection' is missing",
+      "impact": "Without X-XSS-Protection, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support",
+      "cwe": "CWE-79",
+      "owasp": "A03:2021 Injection",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.988677+00:00"
+    },
+    {
+      "id": "AS09-00022",
+      "title": "Missing Referrer-Policy header on Login Page",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Controls how much referrer information is sent with requests",
+      "evidence": "URL: https://auth.archscale.in/login\nHeader 'Referrer-Policy' is missing",
+      "impact": "Without Referrer-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: Referrer-Policy: strict-origin-when-cross-origin",
+      "cwe": "CWE-200",
+      "owasp": "A01:2021 Broken Access Control",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.988683+00:00"
+    },
+    {
+      "id": "AS09-00023",
+      "title": "Missing Permissions-Policy header on Login Page",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Controls which browser features the page can use (camera, mic, geolocation)",
+      "evidence": "URL: https://auth.archscale.in/login\nHeader 'Permissions-Policy' is missing",
+      "impact": "Without Permissions-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.988697+00:00"
+    },
+    {
+      "id": "AS09-00024",
+      "title": "Missing X-Permitted-Cross-Domain-Policies header on Login Page",
+      "category": "Security Headers",
+      "severity": "info",
+      "description": "Prevents Flash/PDF cross-domain data loading",
+      "evidence": "URL: https://auth.archscale.in/login\nHeader 'X-Permitted-Cross-Domain-Policies' is missing",
+      "impact": "Without X-Permitted-Cross-Domain-Policies, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Permitted-Cross-Domain-Policies: none",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.988704+00:00"
+    },
+    {
+      "id": "AS09-00025",
+      "title": "Information disclosure via Server on Login Page",
+      "category": "Information Disclosure",
+      "severity": "low",
+      "description": "Reveals server software and version — aids attacker reconnaissance",
+      "evidence": "URL: https://auth.archscale.in/login\nServer: cloudflare",
+      "impact": "Attackers can use this information to identify specific vulnerabilities in the disclosed software version",
+      "remediation": "Remove or anonymize the Server header to reduce information disclosure",
+      "cwe": "CWE-200",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:07.988712+00:00"
+    },
+    {
+      "id": "AS09-00026",
+      "title": "Missing Content-Security-Policy header on Password Reset",
+      "category": "Security Headers",
+      "severity": "high",
+      "description": "CSP prevents XSS, clickjacking, and other injection attacks",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nHeader 'Content-Security-Policy' is missing",
+      "impact": "Without Content-Security-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins",
+      "cwe": "CWE-79",
+      "owasp": "A03:2021 Injection",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:08.779808+00:00"
+    },
+    {
+      "id": "AS09-00027",
+      "title": "Missing X-Frame-Options header on Password Reset",
+      "category": "Security Headers",
+      "severity": "medium",
+      "description": "Prevents clickjacking by controlling framing of the page",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nHeader 'X-Frame-Options' is missing",
+      "impact": "Without X-Frame-Options, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)",
+      "cwe": "CWE-1021",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:08.779888+00:00"
+    },
+    {
+      "id": "AS09-00028",
+      "title": "Missing X-Content-Type-Options header on Password Reset",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Prevents MIME-sniffing attacks",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nHeader 'X-Content-Type-Options' is missing",
+      "impact": "Without X-Content-Type-Options, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Content-Type-Options: nosniff",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:08.779906+00:00"
+    },
+    {
+      "id": "AS09-00029",
+      "title": "Missing X-XSS-Protection header on Password Reset",
+      "category": "Security Headers",
+      "severity": "info",
+      "description": "Legacy XSS filter (deprecated but still relevant for older browsers)",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nHeader 'X-XSS-Protection' is missing",
+      "impact": "Without X-XSS-Protection, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support",
+      "cwe": "CWE-79",
+      "owasp": "A03:2021 Injection",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:08.779920+00:00"
+    },
+    {
+      "id": "AS09-00030",
+      "title": "Missing Referrer-Policy header on Password Reset",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Controls how much referrer information is sent with requests",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nHeader 'Referrer-Policy' is missing",
+      "impact": "Without Referrer-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: Referrer-Policy: strict-origin-when-cross-origin",
+      "cwe": "CWE-200",
+      "owasp": "A01:2021 Broken Access Control",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:08.779934+00:00"
+    },
+    {
+      "id": "AS09-00031",
+      "title": "Missing Permissions-Policy header on Password Reset",
+      "category": "Security Headers",
+      "severity": "low",
+      "description": "Controls which browser features the page can use (camera, mic, geolocation)",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nHeader 'Permissions-Policy' is missing",
+      "impact": "Without Permissions-Policy, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:08.779946+00:00"
+    },
+    {
+      "id": "AS09-00032",
+      "title": "Missing X-Permitted-Cross-Domain-Policies header on Password Reset",
+      "category": "Security Headers",
+      "severity": "info",
+      "description": "Prevents Flash/PDF cross-domain data loading",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nHeader 'X-Permitted-Cross-Domain-Policies' is missing",
+      "impact": "Without X-Permitted-Cross-Domain-Policies, the application is vulnerable to attacks that this header mitigates",
+      "remediation": "Add header: X-Permitted-Cross-Domain-Policies: none",
+      "cwe": "CWE-16",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:08.779959+00:00"
+    },
+    {
+      "id": "AS09-00033",
+      "title": "Information disclosure via Server on Password Reset",
+      "category": "Information Disclosure",
+      "severity": "low",
+      "description": "Reveals server software and version — aids attacker reconnaissance",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nServer: cloudflare",
+      "impact": "Attackers can use this information to identify specific vulnerabilities in the disclosed software version",
+      "remediation": "Remove or anonymize the Server header to reduce information disclosure",
+      "cwe": "CWE-200",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:08.779971+00:00"
+    },
+    {
+      "id": "AS09-00034",
+      "title": "HTTP to HTTPS redirect uses 308 instead of 301 on app.archscale.in",
+      "category": "SSL/TLS",
+      "severity": "info",
+      "description": "HTTP to HTTPS redirect uses status code 308. A 301 (Permanent Redirect) is preferred for SEO and browser caching.",
+      "evidence": "http://app.archscale.in → 308 → https://app.archscale.in/",
+      "impact": "Temporary redirects may not be cached by browsers, causing unnecessary HTTP requests",
+      "remediation": "Use 301 (Moved Permanently) for HTTP to HTTPS redirects",
+      "cwe": "CWE-319",
+      "owasp": "A02:2021 Cryptographic Failures",
+      "url": "http://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:09.586816+00:00"
+    },
+    {
+      "id": "AS09-00035",
+      "title": "HTTP to HTTPS redirect uses 308 instead of 301 on auth.archscale.in",
+      "category": "SSL/TLS",
+      "severity": "info",
+      "description": "HTTP to HTTPS redirect uses status code 308. A 301 (Permanent Redirect) is preferred for SEO and browser caching.",
+      "evidence": "http://auth.archscale.in → 308 → https://auth.archscale.in/",
+      "impact": "Temporary redirects may not be cached by browsers, causing unnecessary HTTP requests",
+      "remediation": "Use 301 (Moved Permanently) for HTTP to HTTPS redirects",
+      "cwe": "CWE-319",
+      "owasp": "A02:2021 Cryptographic Failures",
+      "url": "http://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:10.187574+00:00"
+    },
+    {
+      "id": "AS09-00036",
+      "title": "SPF record uses ~all (soft fail — not enforced)",
+      "category": "DNS Security",
+      "severity": "low",
+      "description": "The SPF record uses ~all (soft fail). While emails from unauthorized senders will be flagged, they won't be rejected outright.",
+      "evidence": "SPF: \"v=spf1 include:_spf.mail.hostinger.com ~all\"",
+      "impact": "Spoofed emails may still be delivered to some recipients",
+      "remediation": "Consider changing ~all to -all for strict enforcement once all legitimate senders are listed",
+      "cwe": "CWE-290",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "dns://archscale.in/TXT",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:11.618172+00:00"
+    },
+    {
+      "id": "AS09-00037",
+      "title": "DMARC policy is set to 'none' (monitoring only)",
+      "category": "DNS Security",
+      "severity": "low",
+      "description": "DMARC policy is set to p=none, which only monitors but does not reject or quarantine spoofed emails.",
+      "evidence": "DMARC: \"v=DMARC1; p=none\"",
+      "impact": "Email spoofing is monitored but not prevented",
+      "remediation": "Consider upgrading to p=quarantine or p=reject after reviewing DMARC reports",
+      "cwe": "CWE-290",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "dns://_dmarc.archscale.in/TXT",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:11.716775+00:00"
+    },
+    {
+      "id": "AS09-00040",
+      "title": "Certificate Transparency reveals 25 subdomains for archscale.in",
+      "category": "DNS Reconnaissance",
+      "severity": "info",
+      "description": "Certificate Transparency logs reveal 25 subdomains for archscale.in. While CT logs are public by design, exposed subdomains increase the attack surface.",
+      "evidence": "Subdomains found: academy.archscale.in, accounts.archscale.in, admin.archscale.in, ai.archscale.in, api.archscale.in, api.cloud.archscale.in, app.archscale.in, archscale.in, auth.archscale.in, cdn.archscale.in, client.archscale.in, cloud.archscale.in, community.archscale.in, docs.archscale.in, forms.archscale.in...",
+      "impact": "Each subdomain is a potential attack vector that may host vulnerable services",
+      "remediation": "Audit all discovered subdomains. Ensure staging/dev/internal subdomains are not publicly accessible.",
+      "cwe": "CWE-200",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://crt.sh/?q=archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:19.252431+00:00"
+    },
+    {
+      "id": "AS09-00001",
+      "title": "CORS allows all origins (wildcard) on Main Application",
+      "category": "CORS Misconfiguration",
+      "severity": "medium",
+      "description": "The server sets Access-Control-Allow-Origin to wildcard (*), allowing any website to make cross-origin requests.",
+      "evidence": "Access-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: not set",
+      "impact": "Any website can read responses from this endpoint. If the endpoint returns sensitive data, it can be stolen cross-origin.",
+      "remediation": "Replace wildcard with specific trusted origins. Use a whitelist-based approach.",
+      "cwe": "CWE-942",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:06.398986+00:00"
+    },
+    {
+      "id": "AS09-00038",
+      "title": "CORS allows all origins (wildcard) on Auth Service",
+      "category": "CORS Misconfiguration",
+      "severity": "medium",
+      "description": "The server sets Access-Control-Allow-Origin to wildcard (*), allowing any website to make cross-origin requests.",
+      "evidence": "Access-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: not set",
+      "impact": "Any website can read responses from this endpoint. If the endpoint returns sensitive data, it can be stolen cross-origin.",
+      "remediation": "Replace wildcard with specific trusted origins. Use a whitelist-based approach.",
+      "cwe": "CWE-942",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:12.648069+00:00"
+    },
+    {
+      "id": "AS09-00039",
+      "title": "CORS allows all origins (wildcard) on Login Page",
+      "category": "CORS Misconfiguration",
+      "severity": "medium",
+      "description": "The server sets Access-Control-Allow-Origin to wildcard (*), allowing any website to make cross-origin requests.",
+      "evidence": "Access-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: not set",
+      "impact": "Any website can read responses from this endpoint. If the endpoint returns sensitive data, it can be stolen cross-origin.",
+      "remediation": "Replace wildcard with specific trusted origins. Use a whitelist-based approach.",
+      "cwe": "CWE-942",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:17.173714+00:00"
+    },
+    {
+      "id": "AS09-00041",
+      "title": "CORS allows all origins (wildcard) on Password Reset",
+      "category": "CORS Misconfiguration",
+      "severity": "medium",
+      "description": "The server sets Access-Control-Allow-Origin to wildcard (*), allowing any website to make cross-origin requests.",
+      "evidence": "Access-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: not set",
+      "impact": "Any website can read responses from this endpoint. If the endpoint returns sensitive data, it can be stolen cross-origin.",
+      "remediation": "Replace wildcard with specific trusted origins. Use a whitelist-based approach.",
+      "cwe": "CWE-942",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:21.671257+00:00"
+    },
+    {
+      "id": "AS09-00042",
+      "title": "Service port 8080/tcp (HTTP-Alt) open on app.archscale.in",
+      "category": "Port Scanning",
+      "severity": "medium",
+      "description": "Port 8080/tcp (HTTP-Alt) is open. Alternative HTTP — often admin or proxy",
+      "evidence": "Host: 104.21.70.151\nPort: 8080/tcp (OPEN)\nService: HTTP-Alt",
+      "impact": "Exposed HTTP-Alt increases the attack surface",
+      "remediation": "Evaluate if HTTP-Alt needs to be publicly accessible. Consider IP-based access restrictions.",
+      "cwe": "CWE-284",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "tcp://app.archscale.in:8080",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:22.389923+00:00"
+    },
+    {
+      "id": "AS09-00043",
+      "title": "Service port 8443/tcp (HTTPS-Alt) open on app.archscale.in",
+      "category": "Port Scanning",
+      "severity": "medium",
+      "description": "Port 8443/tcp (HTTPS-Alt) is open. Alternative HTTPS — often admin panel",
+      "evidence": "Host: 104.21.70.151\nPort: 8443/tcp (OPEN)\nService: HTTPS-Alt",
+      "impact": "Exposed HTTPS-Alt increases the attack surface",
+      "remediation": "Evaluate if HTTPS-Alt needs to be publicly accessible. Consider IP-based access restrictions.",
+      "cwe": "CWE-284",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "tcp://app.archscale.in:8443",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:22.389967+00:00"
+    },
+    {
+      "id": "AS09-00044",
+      "title": "Port scan summary: 4 open ports on app.archscale.in",
+      "category": "Port Scanning",
+      "severity": "info",
+      "description": "TCP port scan of app.archscale.in (104.21.70.151) found 4 open ports out of 32 tested.",
+      "evidence": "Open ports:\n     80/tcp  HTTP            \n    443/tcp  HTTPS           \n   8080/tcp  HTTP-Alt        \n   8443/tcp  HTTPS-Alt       ",
+      "impact": "Each open port is a potential entry point for attackers",
+      "remediation": "Close all unnecessary ports. Implement network segmentation and firewall rules.",
+      "cwe": "CWE-284",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:22.389992+00:00"
+    },
+    {
+      "id": "AS09-00045",
+      "title": "Service port 8080/tcp (HTTP-Alt) open on auth.archscale.in",
+      "category": "Port Scanning",
+      "severity": "medium",
+      "description": "Port 8080/tcp (HTTP-Alt) is open. Alternative HTTP — often admin or proxy",
+      "evidence": "Host: 104.21.70.151\nPort: 8080/tcp (OPEN)\nService: HTTP-Alt",
+      "impact": "Exposed HTTP-Alt increases the attack surface",
+      "remediation": "Evaluate if HTTP-Alt needs to be publicly accessible. Consider IP-based access restrictions.",
+      "cwe": "CWE-284",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "tcp://auth.archscale.in:8080",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:26.495830+00:00"
+    },
+    {
+      "id": "AS09-00046",
+      "title": "Service port 8443/tcp (HTTPS-Alt) open on auth.archscale.in",
+      "category": "Port Scanning",
+      "severity": "medium",
+      "description": "Port 8443/tcp (HTTPS-Alt) is open. Alternative HTTPS — often admin panel",
+      "evidence": "Host: 104.21.70.151\nPort: 8443/tcp (OPEN)\nService: HTTPS-Alt",
+      "impact": "Exposed HTTPS-Alt increases the attack surface",
+      "remediation": "Evaluate if HTTPS-Alt needs to be publicly accessible. Consider IP-based access restrictions.",
+      "cwe": "CWE-284",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "tcp://auth.archscale.in:8443",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:26.495859+00:00"
+    },
+    {
+      "id": "AS09-00047",
+      "title": "Port scan summary: 4 open ports on auth.archscale.in",
+      "category": "Port Scanning",
+      "severity": "info",
+      "description": "TCP port scan of auth.archscale.in (104.21.70.151) found 4 open ports out of 32 tested.",
+      "evidence": "Open ports:\n     80/tcp  HTTP            \n    443/tcp  HTTPS           \n   8080/tcp  HTTP-Alt        \n   8443/tcp  HTTPS-Alt       ",
+      "impact": "Each open port is a potential entry point for attackers",
+      "remediation": "Close all unnecessary ports. Implement network segmentation and firewall rules.",
+      "cwe": "CWE-284",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:26.495884+00:00"
+    },
+    {
+      "id": "AS09-00048",
+      "title": "Technology fingerprint: 3 technologies detected",
+      "category": "Technology Fingerprinting",
+      "severity": "info",
+      "description": "Technology fingerprinting detected 3 technologies across all scanned endpoints.",
+      "evidence": "  • Cloudflare  (CDN/WAF) — detected in: Main Application (header), Main Application (waf), Login Page (header), Login Page (waf), Auth Service (waf), Auth Service (header)\n  • Cloudflare WAF  (WAF/CDN) — detected in: Auth Service (waf), Main Application (waf), Login Page (waf)\n  • Vercel  (WAF/CDN) — detected in: Auth Service (waf), Main Application (waf), Login Page (waf)",
+      "impact": "Technology fingerprint helps attackers identify version-specific vulnerabilities and tailor their attacks",
+      "remediation": "Remove version information from response headers. Suppress X-Powered-By. Configure Server header to be generic.",
+      "cwe": "CWE-200",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:29.042151+00:00"
+    },
+    {
+      "id": "AS09-00049",
+      "title": "WAF/CDN detected: Cloudflare WAF, Vercel",
+      "category": "Technology Fingerprinting",
+      "severity": "info",
+      "description": "Web Application Firewall or CDN detected: Cloudflare WAF, Vercel. This may filter malicious requests and provide DDoS protection.",
+      "evidence": "Detected: Cloudflare WAF, Vercel",
+      "impact": "WAF presence indicates an additional security layer, but may provide false sense of security if misconfigured",
+      "remediation": "Ensure WAF rules are properly configured. Regularly update WAF signatures.",
+      "cwe": "CWE-693",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:29.042189+00:00"
+    },
+    {
+      "id": "AS09-00050",
+      "title": "No Content-Security-Policy header on Main Application",
+      "category": "CSP Analysis",
+      "severity": "high",
+      "description": "No Content-Security-Policy header is set. CSP is the primary defense against Cross-Site Scripting (XSS) attacks and other injection-based attacks.",
+      "evidence": "URL: https://app.archscale.in\nContent-Security-Policy: (not set)\nContent-Security-Policy-Report-Only: (not set)",
+      "impact": "Without CSP, the application has no browser-enforced protection against XSS, clickjacking via frames, or other injection attacks",
+      "remediation": "Implement a strict Content-Security-Policy. Start with:\nContent-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'",
+      "cwe": "CWE-693",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:29.849308+00:00"
+    },
+    {
+      "id": "AS09-00051",
+      "title": "No Content-Security-Policy header on Auth Service",
+      "category": "CSP Analysis",
+      "severity": "high",
+      "description": "No Content-Security-Policy header is set. CSP is the primary defense against Cross-Site Scripting (XSS) attacks and other injection-based attacks.",
+      "evidence": "URL: https://auth.archscale.in\nContent-Security-Policy: (not set)\nContent-Security-Policy-Report-Only: (not set)",
+      "impact": "Without CSP, the application has no browser-enforced protection against XSS, clickjacking via frames, or other injection attacks",
+      "remediation": "Implement a strict Content-Security-Policy. Start with:\nContent-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'",
+      "cwe": "CWE-693",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:30.748174+00:00"
+    },
+    {
+      "id": "AS09-00052",
+      "title": "No Content-Security-Policy header on Login Page",
+      "category": "CSP Analysis",
+      "severity": "high",
+      "description": "No Content-Security-Policy header is set. CSP is the primary defense against Cross-Site Scripting (XSS) attacks and other injection-based attacks.",
+      "evidence": "URL: https://auth.archscale.in/login\nContent-Security-Policy: (not set)\nContent-Security-Policy-Report-Only: (not set)",
+      "impact": "Without CSP, the application has no browser-enforced protection against XSS, clickjacking via frames, or other injection attacks",
+      "remediation": "Implement a strict Content-Security-Policy. Start with:\nContent-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'",
+      "cwe": "CWE-693",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:31.542418+00:00"
+    },
+    {
+      "id": "AS09-00053",
+      "title": "Admin/management subdomains exposed for archscale.in",
+      "category": "Subdomain Enumeration",
+      "severity": "medium",
+      "description": "Administrative subdomains found: admin.archscale.in",
+      "evidence": "admin.archscale.in → 200 | ",
+      "impact": "Admin panels may be targeted for brute-force or exploit attacks",
+      "remediation": "Protect admin subdomains with VPN access, IP restrictions, and multi-factor authentication",
+      "cwe": "CWE-200",
+      "owasp": "A01:2021 Broken Access Control",
+      "url": "https://admin.archscale.in/",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:39.679728+00:00"
+    },
+    {
+      "id": "AS09-00054",
+      "title": "Subdomain enumeration discovered 25 subdomains (17 live)",
+      "category": "Subdomain Enumeration",
+      "severity": "info",
+      "description": "Subdomain enumeration of archscale.in discovered 25 unique subdomains, of which 17 responded to HTTP requests.",
+      "evidence": "Sources: CT logs (25), DNS brute-force (7)\nLive hosts:\n  app.archscale.in → 200 | cloudflare\n  auth.archscale.in → 200 | cloudflare\n  accounts.archscale.in → 200 | cloudflare\n  client.archscale.in → 200 | cloudflare\n  api.archscale.in → 200 | cloudflare\n  forms.archscale.in → 200 | Vercel\n  cdn.archscale.in → 200 | cloudflare\n  cloud.archscale.in → 200 | cloudflare\n  archscale.in → 200 | cloudflare\n  ai.archscale.in → 200 | cloudflare\n  docs.archscale.in → 200 | cloudflare\n  tasks.archscale.in → 200 | Vercel\n  vendor.archscale.in → 200 | Vercel\n  people.archscale.in → 200 | Vercel\n  www.archscale.in → 200 | cloudflare",
+      "impact": "Each live subdomain represents a potential attack surface entry point",
+      "remediation": "Review all discovered subdomains. Decommission unused services. Ensure all subdomains have proper security controls.",
+      "cwe": "CWE-200",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://crt.sh/?q=archscale.in",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:39.679816+00:00"
+    },
+    {
+      "id": "AS09-00056",
+      "title": "returnTo parameter appears to validate redirect targets",
+      "category": "Open Redirect",
+      "severity": "info",
+      "description": "Testing of the returnTo parameter with various bypass payloads did not result in successful open redirects. The server appears to validate redirect targets.",
+      "evidence": "Tested 23 payloads against https://auth.archscale.in/login?returnTo=<payload>. No external redirects observed.",
+      "impact": "Low — the redirect validation appears to be functioning correctly",
+      "remediation": "Continue monitoring. Ensure the allowlist is maintained as new subdomains are added.",
+      "cwe": "CWE-601",
+      "owasp": "A01:2021 Broken Access Control",
+      "url": "https://auth.archscale.in/login",
+      "status": "not_vulnerable",
+      "timestamp": "2026-09-10T17:51:49.705471+00:00"
+    },
+    {
+      "id": "AS09-00061",
+      "title": "Error handling appears properly configured",
+      "category": "Error Handling",
+      "severity": "info",
+      "description": "No information leakage was detected in error responses across all tested payloads and methods.",
+      "evidence": "Tested 24 error payloads, 6 HTTP methods, and multiple malformed request types",
+      "impact": "Positive — error pages do not leak sensitive internal details",
+      "remediation": "Continue monitoring. Ensure custom error handlers remain in place after updates.",
+      "cwe": "CWE-209",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "url": "https://app.archscale.in",
+      "status": "not_vulnerable",
+      "timestamp": "2026-09-10T17:52:54.244724+00:00"
+    },
+    {
+      "id": "AS09-00055",
+      "title": "No rate limiting detected on Login Page",
+      "category": "Rate Limiting",
+      "severity": "high",
+      "description": "No rate limiting was detected after sending 15 rapid requests to Login Page. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.",
+      "evidence": "URL: https://auth.archscale.in/login\nRequests sent: 15\nStatus codes: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]\nAvg response time: 0.916s\nTime increase factor: 1.1x",
+      "impact": "Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks",
+      "remediation": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+      "cwe": "CWE-307",
+      "owasp": "A07:2021 Identification and Authentication Failures",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:51:48.074317+00:00"
+    },
+    {
+      "id": "AS09-00057",
+      "title": "No rate limiting detected on Login POST",
+      "category": "Rate Limiting",
+      "severity": "high",
+      "description": "No rate limiting was detected after sending 15 rapid requests to Login POST. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.",
+      "evidence": "URL: https://auth.archscale.in/login\nRequests sent: 15\nStatus codes: []\nAvg response time: 1.138s\nTime increase factor: 4.9x",
+      "impact": "Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks",
+      "remediation": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+      "cwe": "CWE-307",
+      "owasp": "A07:2021 Identification and Authentication Failures",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:52:06.647850+00:00"
+    },
+    {
+      "id": "AS09-00058",
+      "title": "Possible progressive delay on Login POST",
+      "category": "Rate Limiting",
+      "severity": "info",
+      "description": "Response time increased 4.9x from first to last request, suggesting progressive delay/throttling may be in effect.",
+      "evidence": "First request: 1.185s\nLast request: 5.777s\nIncrease: 4.9x",
+      "impact": "Progressive delay can slow down brute-force attacks",
+      "remediation": "Consider combining progressive delay with hard rate limits (429 responses)",
+      "cwe": "CWE-307",
+      "owasp": "A07:2021 Identification and Authentication Failures",
+      "url": "https://auth.archscale.in/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:52:06.647882+00:00"
+    },
+    {
+      "id": "AS09-00059",
+      "title": "No rate limiting detected on Password Reset",
+      "category": "Rate Limiting",
+      "severity": "high",
+      "description": "No rate limiting was detected after sending 15 rapid requests to Password Reset. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.",
+      "evidence": "URL: https://auth.archscale.in/auth/forgot-password\nRequests sent: 15\nStatus codes: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]\nAvg response time: 0.990s\nTime increase factor: 1.0x",
+      "impact": "Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks",
+      "remediation": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+      "cwe": "CWE-307",
+      "owasp": "A07:2021 Identification and Authentication Failures",
+      "url": "https://auth.archscale.in/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:52:22.999642+00:00"
+    },
+    {
+      "id": "AS09-00060",
+      "title": "No rate limiting detected on API Login",
+      "category": "Rate Limiting",
+      "severity": "high",
+      "description": "No rate limiting was detected after sending 15 rapid requests to API Login. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.",
+      "evidence": "URL: https://auth.archscale.in/api/auth/login\nRequests sent: 15\nStatus codes: []\nAvg response time: 1.085s\nTime increase factor: 0.7x",
+      "impact": "Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks",
+      "remediation": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+      "cwe": "CWE-307",
+      "owasp": "A07:2021 Identification and Authentication Failures",
+      "url": "https://auth.archscale.in/api/auth/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:52:40.786398+00:00"
+    },
+    {
+      "id": "AS09-00062",
+      "title": "No rate limiting detected on API Register",
+      "category": "Rate Limiting",
+      "severity": "high",
+      "description": "No rate limiting was detected after sending 15 rapid requests to API Register. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.",
+      "evidence": "URL: https://auth.archscale.in/api/auth/register\nRequests sent: 15\nStatus codes: []\nAvg response time: 1.487s\nTime increase factor: 1.0x",
+      "impact": "Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks",
+      "remediation": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+      "cwe": "CWE-307",
+      "owasp": "A07:2021 Identification and Authentication Failures",
+      "url": "https://auth.archscale.in/api/auth/register",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:53:04.605157+00:00"
+    },
+    {
+      "id": "AS09-00063",
+      "title": "No rate limiting detected on API Password Reset",
+      "category": "Rate Limiting",
+      "severity": "high",
+      "description": "No rate limiting was detected after sending 15 rapid requests to API Password Reset. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.",
+      "evidence": "URL: https://auth.archscale.in/api/auth/forgot-password\nRequests sent: 15\nStatus codes: []\nAvg response time: 0.777s\nTime increase factor: 1.0x",
+      "impact": "Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks",
+      "remediation": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+      "cwe": "CWE-307",
+      "owasp": "A07:2021 Identification and Authentication Failures",
+      "url": "https://auth.archscale.in/api/auth/forgot-password",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:53:17.773582+00:00"
+    },
+    {
+      "id": "AS09-00064",
+      "title": "No rate limiting detected on API v1 Login",
+      "category": "Rate Limiting",
+      "severity": "high",
+      "description": "No rate limiting was detected after sending 15 rapid requests to API v1 Login. All requests returned successful status codes without any throttling, CAPTCHA, or lockout.",
+      "evidence": "URL: https://auth.archscale.in/api/v1/auth/login\nRequests sent: 15\nStatus codes: []\nAvg response time: 0.695s\nTime increase factor: 1.0x",
+      "impact": "Without rate limiting, attackers can perform brute-force attacks against authentication, credential stuffing, or resource exhaustion attacks",
+      "remediation": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+      "cwe": "CWE-307",
+      "owasp": "A07:2021 Identification and Authentication Failures",
+      "url": "https://auth.archscale.in/api/v1/auth/login",
+      "status": "confirmed",
+      "timestamp": "2026-09-10T17:53:29.711868+00:00"
+    }
+  ],
+  "hardening": {
+    "immediate": [
+      {
+        "finding_id": "AS09-00002",
+        "title": "Missing Content-Security-Policy header on Main Application",
+        "action": "Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00010",
+        "title": "Missing Content-Security-Policy header on Authentication Service",
+        "action": "Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00018",
+        "title": "Missing Content-Security-Policy header on Login Page",
+        "action": "Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00026",
+        "title": "Missing Content-Security-Policy header on Password Reset",
+        "action": "Implement a strict Content-Security-Policy that restricts script-src, style-src, and default-src to trusted origins",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00050",
+        "title": "No Content-Security-Policy header on Main Application",
+        "action": "Implement a strict Content-Security-Policy. Start with:\nContent-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00051",
+        "title": "No Content-Security-Policy header on Auth Service",
+        "action": "Implement a strict Content-Security-Policy. Start with:\nContent-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00052",
+        "title": "No Content-Security-Policy header on Login Page",
+        "action": "Implement a strict Content-Security-Policy. Start with:\nContent-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00055",
+        "title": "No rate limiting detected on Login Page",
+        "action": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00057",
+        "title": "No rate limiting detected on Login POST",
+        "action": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00059",
+        "title": "No rate limiting detected on Password Reset",
+        "action": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00060",
+        "title": "No rate limiting detected on API Login",
+        "action": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00062",
+        "title": "No rate limiting detected on API Register",
+        "action": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00063",
+        "title": "No rate limiting detected on API Password Reset",
+        "action": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+        "priority": "P1"
+      },
+      {
+        "finding_id": "AS09-00064",
+        "title": "No rate limiting detected on API v1 Login",
+        "action": "Implement rate limiting on all authentication endpoints:\n• Return 429 Too Many Requests after threshold\n• Include Retry-After header\n• Implement progressive delays\n• Consider CAPTCHA after N failed attempts\n• Implement IP-based and account-based rate limits",
+        "priority": "P1"
+      }
+    ],
+    "short_term": [
+      {
+        "finding_id": "AS09-00003",
+        "title": "Missing X-Frame-Options header on Main Application",
+        "action": "Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00011",
+        "title": "Missing X-Frame-Options header on Authentication Service",
+        "action": "Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00019",
+        "title": "Missing X-Frame-Options header on Login Page",
+        "action": "Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00027",
+        "title": "Missing X-Frame-Options header on Password Reset",
+        "action": "Add header: X-Frame-Options: DENY (or SAMEORIGIN if framing is needed internally)",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00001",
+        "title": "CORS allows all origins (wildcard) on Main Application",
+        "action": "Replace wildcard with specific trusted origins. Use a whitelist-based approach.",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00038",
+        "title": "CORS allows all origins (wildcard) on Auth Service",
+        "action": "Replace wildcard with specific trusted origins. Use a whitelist-based approach.",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00039",
+        "title": "CORS allows all origins (wildcard) on Login Page",
+        "action": "Replace wildcard with specific trusted origins. Use a whitelist-based approach.",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00041",
+        "title": "CORS allows all origins (wildcard) on Password Reset",
+        "action": "Replace wildcard with specific trusted origins. Use a whitelist-based approach.",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00042",
+        "title": "Service port 8080/tcp (HTTP-Alt) open on app.archscale.in",
+        "action": "Evaluate if HTTP-Alt needs to be publicly accessible. Consider IP-based access restrictions.",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00043",
+        "title": "Service port 8443/tcp (HTTPS-Alt) open on app.archscale.in",
+        "action": "Evaluate if HTTPS-Alt needs to be publicly accessible. Consider IP-based access restrictions.",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00045",
+        "title": "Service port 8080/tcp (HTTP-Alt) open on auth.archscale.in",
+        "action": "Evaluate if HTTP-Alt needs to be publicly accessible. Consider IP-based access restrictions.",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00046",
+        "title": "Service port 8443/tcp (HTTPS-Alt) open on auth.archscale.in",
+        "action": "Evaluate if HTTPS-Alt needs to be publicly accessible. Consider IP-based access restrictions.",
+        "priority": "P2"
+      },
+      {
+        "finding_id": "AS09-00053",
+        "title": "Admin/management subdomains exposed for archscale.in",
+        "action": "Protect admin subdomains with VPN access, IP restrictions, and multi-factor authentication",
+        "priority": "P2"
+      }
+    ],
+    "long_term": [
+      {
+        "finding_id": "AS09-00004",
+        "title": "Missing X-Content-Type-Options header on Main Application",
+        "action": "Add header: X-Content-Type-Options: nosniff",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00006",
+        "title": "Missing Referrer-Policy header on Main Application",
+        "action": "Add header: Referrer-Policy: strict-origin-when-cross-origin",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00007",
+        "title": "Missing Permissions-Policy header on Main Application",
+        "action": "Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00009",
+        "title": "Information disclosure via Server on Main Application",
+        "action": "Remove or anonymize the Server header to reduce information disclosure",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00012",
+        "title": "Missing X-Content-Type-Options header on Authentication Service",
+        "action": "Add header: X-Content-Type-Options: nosniff",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00014",
+        "title": "Missing Referrer-Policy header on Authentication Service",
+        "action": "Add header: Referrer-Policy: strict-origin-when-cross-origin",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00015",
+        "title": "Missing Permissions-Policy header on Authentication Service",
+        "action": "Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00017",
+        "title": "Information disclosure via Server on Authentication Service",
+        "action": "Remove or anonymize the Server header to reduce information disclosure",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00020",
+        "title": "Missing X-Content-Type-Options header on Login Page",
+        "action": "Add header: X-Content-Type-Options: nosniff",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00022",
+        "title": "Missing Referrer-Policy header on Login Page",
+        "action": "Add header: Referrer-Policy: strict-origin-when-cross-origin",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00023",
+        "title": "Missing Permissions-Policy header on Login Page",
+        "action": "Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00025",
+        "title": "Information disclosure via Server on Login Page",
+        "action": "Remove or anonymize the Server header to reduce information disclosure",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00028",
+        "title": "Missing X-Content-Type-Options header on Password Reset",
+        "action": "Add header: X-Content-Type-Options: nosniff",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00030",
+        "title": "Missing Referrer-Policy header on Password Reset",
+        "action": "Add header: Referrer-Policy: strict-origin-when-cross-origin",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00031",
+        "title": "Missing Permissions-Policy header on Password Reset",
+        "action": "Add header: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00033",
+        "title": "Information disclosure via Server on Password Reset",
+        "action": "Remove or anonymize the Server header to reduce information disclosure",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00036",
+        "title": "SPF record uses ~all (soft fail — not enforced)",
+        "action": "Consider changing ~all to -all for strict enforcement once all legitimate senders are listed",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00037",
+        "title": "DMARC policy is set to 'none' (monitoring only)",
+        "action": "Consider upgrading to p=quarantine or p=reject after reviewing DMARC reports",
+        "priority": "P3"
+      },
+      {
+        "finding_id": "AS09-00005",
+        "title": "Missing X-XSS-Protection header on Main Application",
+        "action": "Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00008",
+        "title": "Missing X-Permitted-Cross-Domain-Policies header on Main Application",
+        "action": "Add header: X-Permitted-Cross-Domain-Policies: none",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00013",
+        "title": "Missing X-XSS-Protection header on Authentication Service",
+        "action": "Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00016",
+        "title": "Missing X-Permitted-Cross-Domain-Policies header on Authentication Service",
+        "action": "Add header: X-Permitted-Cross-Domain-Policies: none",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00021",
+        "title": "Missing X-XSS-Protection header on Login Page",
+        "action": "Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00024",
+        "title": "Missing X-Permitted-Cross-Domain-Policies header on Login Page",
+        "action": "Add header: X-Permitted-Cross-Domain-Policies: none",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00029",
+        "title": "Missing X-XSS-Protection header on Password Reset",
+        "action": "Add header: X-XSS-Protection: 0 (rely on CSP instead) or 1; mode=block for legacy support",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00032",
+        "title": "Missing X-Permitted-Cross-Domain-Policies header on Password Reset",
+        "action": "Add header: X-Permitted-Cross-Domain-Policies: none",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00034",
+        "title": "HTTP to HTTPS redirect uses 308 instead of 301 on app.archscale.in",
+        "action": "Use 301 (Moved Permanently) for HTTP to HTTPS redirects",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00035",
+        "title": "HTTP to HTTPS redirect uses 308 instead of 301 on auth.archscale.in",
+        "action": "Use 301 (Moved Permanently) for HTTP to HTTPS redirects",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00040",
+        "title": "Certificate Transparency reveals 25 subdomains for archscale.in",
+        "action": "Audit all discovered subdomains. Ensure staging/dev/internal subdomains are not publicly accessible.",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00044",
+        "title": "Port scan summary: 4 open ports on app.archscale.in",
+        "action": "Close all unnecessary ports. Implement network segmentation and firewall rules.",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00047",
+        "title": "Port scan summary: 4 open ports on auth.archscale.in",
+        "action": "Close all unnecessary ports. Implement network segmentation and firewall rules.",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00048",
+        "title": "Technology fingerprint: 3 technologies detected",
+        "action": "Remove version information from response headers. Suppress X-Powered-By. Configure Server header to be generic.",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00049",
+        "title": "WAF/CDN detected: Cloudflare WAF, Vercel",
+        "action": "Ensure WAF rules are properly configured. Regularly update WAF signatures.",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00054",
+        "title": "Subdomain enumeration discovered 25 subdomains (17 live)",
+        "action": "Review all discovered subdomains. Decommission unused services. Ensure all subdomains have proper security controls.",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00056",
+        "title": "returnTo parameter appears to validate redirect targets",
+        "action": "Continue monitoring. Ensure the allowlist is maintained as new subdomains are added.",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00061",
+        "title": "Error handling appears properly configured",
+        "action": "Continue monitoring. Ensure custom error handlers remain in place after updates.",
+        "priority": "P4"
+      },
+      {
+        "finding_id": "AS09-00058",
+        "title": "Possible progressive delay on Login POST",
+        "action": "Consider combining progressive delay with hard rate limits (429 responses)",
+        "priority": "P4"
+      }
+    ]
+  }
+}

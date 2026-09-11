@@ -57,7 +57,7 @@ export default function ScanPage() {
       setLogs((prev) => [...prev, data.message]);
     });
 
-    es.addEventListener("module_complete", (e) => {
+    es.addEventListener("module_complete", (e: any) => {
       const data = JSON.parse(e.data);
       setLogs((prev) => [...prev, data.message]);
       
@@ -74,21 +74,21 @@ export default function ScanPage() {
       setTotalFindings((prev) => prev + data.findingsCount);
     });
 
-    es.addEventListener("complete", (e) => {
+    es.addEventListener("complete", (e: any) => {
       setLogs((prev) => [...prev, "Scan complete! Generating reports..."]);
       setTimeout(() => {
         router.push("/findings"); // Redirect to findings when done
       }, 2000);
     });
 
-    es.addEventListener("error", (e) => {
+    es.addEventListener("error", (e: any) => {
       const data = JSON.parse(e.data);
       if (data.message) {
         setLogs((prev) => [...prev, `[ERROR] ${data.message}`]);
       }
     });
 
-    es.addEventListener("done", (e) => {
+    es.addEventListener("done", (e: any) => {
       es.close();
       setIsScanning(false);
       const data = JSON.parse(e.data);

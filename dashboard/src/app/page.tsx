@@ -176,7 +176,7 @@ export default function OverviewPage() {
           <div className="text-3xl font-bold">
             <AnimatedCounter target={security_score.total_findings} />
           </div>
-          <SeverityBar counts={sc} />
+          <SeverityBar counts={sc as Record<string, number>} />
         </div>
 
         <div className="glass-card p-5">
